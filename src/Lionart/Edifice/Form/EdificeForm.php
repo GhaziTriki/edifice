@@ -89,7 +89,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function input($type, $name, $value = null, $options = array()) {
-		return $this->form->input($type, $name, $value, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->input($type, $name, $value, $options), $label);
 	}
 
 	/**
@@ -116,7 +118,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function password($name, $options = array()) {
-		return $this->form->password($name, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->password($name, $options), $label);
 	}
 
 	/**
@@ -142,7 +146,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function email($name, $value = null, $options = array()) {
-		return $this->form->email($name, $value, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->email($name, $value, $options), $label);
 	}
 
 	/**
@@ -154,7 +160,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function file($name, $options = array()) {
-		return $this->form->file($name, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->file($name, $options), $label);
 	}
 
 	/**
@@ -167,7 +175,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function textarea($name, $value = null, $options = array()) {
-		return $this->form->textarea($name, $value, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->textarea($name, $value, $options), $label);
 	}
 
 	/**
@@ -181,7 +191,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function select($name, $list = array(), $selected = null, $options = array()) {
-		return $this->form->select($name, $list, $selected, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->select($name, $list, $selected, $options), $label);
 	}
 
 	/**
@@ -195,7 +207,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function checkbox($name, $value = 1, $checked = null, $options = array()) {
-		return $this->form->checkbox($name, $value, $checked, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->checkbox($name, $value, $checked, $options), $label);
 	}
 
 	/**
@@ -209,7 +223,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function radio($name, $value = null, $checked = null, $options = array()) {
-		return $this->form->radio($name, $value, $checked, $options);
+		$label = $this->processLabel($name, $options);
+
+		return $this->processItem($this->form->radio($name, $value, $checked, $options), $label);
 	}
 
 	/**
@@ -333,7 +349,7 @@ class EdificeForm {
 	}
 
 	/**
-	 * Unsets a value from array then returns it.
+	 * Unset a value from array then returns it.
 	 *
 	 * @param $array Array having a value to be unset
 	 * @param $key   The key that will be used to unset.
@@ -364,8 +380,8 @@ class EdificeForm {
 	/**
 	 * Processes the form input label.
 	 *
-	 * @param $name    Form input name
-	 * @param $options Form input options, label options will be extracted
+	 * @param string $name    Form input name
+	 * @param array  $options Form input options, label options will be extracted
 	 *
 	 * @return array
 	 */
@@ -406,8 +422,12 @@ class EdificeForm {
 	}
 
 	/**
-	 * @param       $tag
-	 * @param array $label_inline
+	 * Processes a HTML input with its label.
+	 *
+	 * @param string $tag
+	 * @param array  $label_opts
+	 *
+	 * @return string
 	 */
 	protected function processItem($tag, array $label_opts) {
 
