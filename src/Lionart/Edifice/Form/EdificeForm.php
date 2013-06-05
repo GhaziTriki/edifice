@@ -433,8 +433,8 @@ class EdificeForm {
 
 		$result = $this->openRow();
 
-		if (isset($label_opts['label']) && isset($label_opts['inline']) && $label_opts['inline'] === true) {
-			if ($wrap) {
+		if (isset($label_opts['label'])) {
+			if ($wrap || isset($label_opts['inline']) && $label_opts['inline'] === true) {
 				$input_tag = '<div class="small-8 columns">' . $tag . '</div>';
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
