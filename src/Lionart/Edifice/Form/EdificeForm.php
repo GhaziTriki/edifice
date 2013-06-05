@@ -310,12 +310,18 @@ class EdificeForm {
 	}
 
 	/**
-	 * Opens a div using Founcation row as class.²
+	 * Opens a div using Founcation row as class.
+	 *
+	 * @param bool $error is set to true when a validation error occured.
 	 *
 	 * @return string
 	 */
-	protected function openRow() {
-		return '<div class="row">';
+	protected function openRow($error = false) {
+		if ($error === false) {
+			return '<div class="row">';
+		} else {
+			return '<div class="row error">';
+		}
 	}
 
 	/**
