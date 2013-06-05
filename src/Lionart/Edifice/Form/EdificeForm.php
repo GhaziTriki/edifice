@@ -102,52 +102,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function text($name, $value = null, $options = array()) {
+		$label = $this->processLabel($name, $options);
 
-		// Opens div with row class
-		$result = $this->openRow();
-
-		// Processing label
-		if (array_key_exists('label', $options)) {
-
-			$label = $this->unsetFromArray('label', $options);
-			if (array_key_exists('text', $label)) {
-				$this->initInArrayIfNotSet('class', $label);
-
-				$inline = $this->unsetFromArray('inline', $label);
-				$align  = $this->unsetFromArray('align', $label);
-				$text   = $this->unsetFromArray('text', $label);
-
-				// Processing label inline ( the processing order is importantF )
-				if ($inline === true) {
-					$label['class'] = implode(' ', array('inline', $label['class']));
-				}
-
-				// Processing label alignment
-				if ($align === 'left') {
-					$label['class'] = implode(' ', array('left', $label['class']));
-				} elseif ($align === 'right') {
-					$label['class'] = implode(' ', array('right', $label['class']));
-				}
-
-				$label_tag = $this->form->label($name . '_label', $text, $label);
-
-				if ($inline === true) {
-					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
-				}
-			}
-		}
-
-		// Adds the input
-		$input_tag = $this->form->text($name, $value, $options);
-
-		if (isset($label_tag) && isset($inline) && $inline === true) {
-			$input_tag = '<div class="small-8 columns">' . $input_tag . '</div>';
-			$result .= $label_tag . $input_tag . $this->closeRow();
-		} else {
-			$result .= $input_tag . $this->closeRow();
-		}
-
-		return $result;
+		return $this->processItem($this->form->text($name, $value, $options), $label);
 	}
 
 	/**
@@ -396,5 +353,67 @@ class EdificeForm {
 		if (!array_key_exists($key, $array)) {
 			$array[$key] = '';
 		}
+	}
+
+	/**
+	 * Processes the form input label.
+	 *
+	 * @param $name    Form input name
+	 * @param $options Form input options, label options will be extracted
+	 *
+	 * @return array
+	 */
+	protected function processLabel($name, &$options) {
+		$label_tag = null;
+		$inline    = null;
+		if (array_key_exists('label', $options)) {
+
+			$label = $this->unsetFromArray('label', $options);
+			if (array_key_exists('text', $label)) {
+				$this->initInArrayIfNotSet('class', $label);
+
+				$inline = $this->unsetFromArray('inline', $label);
+				$align  = $this->unsetFromArray('align', $label);
+				$text   = $this->unsetFromArray('text', $label);
+
+				// Processing label inline ( the processing order is importantF )
+				if ($inline === true) {
+					$label['class'] = implode(' ', array('inline', $label['class']));
+				}
+
+				// Processing label alignment
+				if ($align === 'left') {
+					$label['class'] = implode(' ', array('left', $label['class']));
+				} elseif ($align === 'right') {
+					$label['class'] = implode(' ', array('right', $label['class']));
+				}
+
+				$label_tag = $this->form->label($name . '_label', $text, $label);
+
+				if ($inline === true) {
+					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
+				}
+			}
+		}
+
+		return array('label' => $label_tag, 'inline' => $inline);
+	}
+
+	/**
+	 * @param       $tag
+	 * @param array $label_inline
+	 */
+	protected function processItem($tag, array $label_opts) {
+
+		$result = $this->openRow();
+
+		if (isset($label_opts['label']) && isset($label_opts['inline']) && $label_opts['inline'] === true) {
+			$input_tag = '<div class="small-8 columns">' . $tag . '</div>';
+			$result .= $label_opts['label'] . $input_tag . $this->closeRow();
+		} else {
+			$result .= $tag . $this->closeRow();
+		}
+
+		return $result;
 	}
 }
