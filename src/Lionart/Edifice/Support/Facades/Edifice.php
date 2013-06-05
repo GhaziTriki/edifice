@@ -8,6 +8,8 @@
 
 namespace Lionart\Edifice\Support\Facades;
 
+use Illuminate\Support\Facades\Facade;
+
 class Edifice extends Facade {
 
 	/**
@@ -16,6 +18,6 @@ class Edifice extends Facade {
 	 * @return string
 	 */
 	protected static function getFacadeAccessor() {
-		return 'edifice';
+		return 'edifice.form';
 	}
 }

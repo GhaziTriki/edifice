@@ -1,6 +1,7 @@
 <?php namespace Lionart\Edifice;
 
 use Illuminate\Support\ServiceProvider;
+use Lionart\Edifice\Form\EdificeForm;
 
 class EdificeServiceProvider extends ServiceProvider {
 
@@ -16,8 +17,7 @@ class EdificeServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function boot()
-	{
+	public function boot() {
 		$this->package('lionart/edifice');
 	}
 
@@ -26,9 +26,10 @@ class EdificeServiceProvider extends ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function register()
-	{
-		//
+	public function register() {
+		$this->app['edifice.form'] = $this->app->share(function () {
+			return new EdificeForm;
+		});
 	}
 
 	/**
@@ -36,9 +37,8 @@ class EdificeServiceProvider extends ServiceProvider {
 	 *
 	 * @return array
 	 */
-	public function provides()
-	{
-		return array();
+	public function provides() {
+		return array('edifice.form');
 	}
 
 }
