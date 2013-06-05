@@ -9,9 +9,16 @@
 namespace Lionart\Edifice\Form;
 
 use Illuminate\Html\FormBuilder;
+use Illuminate\Session\Store;
+use Illuminate\Support\MessageBag;
 
 class EdificeForm {
 
+
+	/**
+	 * @var \Illuminate\Support\MessageBag
+	 */
+	private $errors;
 
 	/**
 	 * Create a new form builder instance.
@@ -20,8 +27,9 @@ class EdificeForm {
 	 *
 	 * @return void
 	 */
-	public function __construct(FormBuilder $form) {
-		$this->form = $form;
+	public function __construct(FormBuilder $form, Store $session) {
+		$this->form    = $form;
+		$this->session = $session;
 	}
 
 	/**
@@ -32,6 +40,12 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function open(array $options = array()) {
+		$this->errors = $this->session->get('errors');
+
+		if (!is_null($this->errors)) {
+			$this->errors = $this->errors->getMessages();
+		}
+
 		return $this->form->open($options);
 	}
 
@@ -53,6 +67,8 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function close() {
+		$this->errors = null;
+
 		return $this->form->close();
 	}
 
@@ -91,7 +107,7 @@ class EdificeForm {
 	public function input($type, $name, $value = null, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->input($type, $name, $value, $options), $label);
+		return $this->processItem($name, $this->form->input($type, $name, $value, $options), $label);
 	}
 
 	/**
@@ -106,7 +122,7 @@ class EdificeForm {
 	public function text($name, $value = null, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->text($name, $value, $options), $label);
+		return $this->processItem($name, $this->form->text($name, $value, $options), $label);
 	}
 
 	/**
@@ -120,7 +136,7 @@ class EdificeForm {
 	public function password($name, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->password($name, $options), $label);
+		return $this->processItem($name, $this->form->password($name, $options), $label);
 	}
 
 	/**
@@ -148,7 +164,7 @@ class EdificeForm {
 	public function email($name, $value = null, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->email($name, $value, $options), $label);
+		return $this->processItem($name, $this->form->email($name, $value, $options), $label);
 	}
 
 	/**
@@ -162,7 +178,7 @@ class EdificeForm {
 	public function file($name, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->file($name, $options), $label);
+		return $this->processItem($name, $this->form->file($name, $options), $label);
 	}
 
 	/**
@@ -177,7 +193,7 @@ class EdificeForm {
 	public function textarea($name, $value = null, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->textarea($name, $value, $options), $label);
+		return $this->processItem($name, $this->form->textarea($name, $value, $options), $label);
 	}
 
 	/**
@@ -193,7 +209,7 @@ class EdificeForm {
 	public function select($name, $list = array(), $selected = null, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->select($name, $list, $selected, $options), $label);
+		return $this->processItem($name, $this->form->select($name, $list, $selected, $options), $label);
 	}
 
 	/**
@@ -209,7 +225,7 @@ class EdificeForm {
 	public function checkbox($name, $value = 1, $checked = null, $options = array()) {
 		$label = $this->processLabel($name, $options, false);
 
-		return $this->processItem($this->form->checkbox($name, $value, $checked, $options), $label, false);
+		return $this->processItem($name, $this->form->checkbox($name, $value, $checked, $options), $label, false);
 	}
 
 	/**
@@ -225,7 +241,7 @@ class EdificeForm {
 	public function radio($name, $value = null, $checked = null, $options = array()) {
 		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($this->form->radio($name, $value, $checked, $options), $label);
+		return $this->processItem($name, $this->form->radio($name, $value, $checked, $options), $label);
 	}
 
 	/**
@@ -429,19 +445,25 @@ class EdificeForm {
 	 *
 	 * @return string
 	 */
-	protected function processItem($tag, array $label_opts, $wrap = true) {
+	protected function processItem($name, $tag, array $label_opts, $wrap = true) {
 
-		$result = $this->openRow();
+		$has_error     = false;
+		$error_message = '';
+		if (!is_null($this->errors) && array_key_exists($name, $this->errors)) {
+			$has_error     = true;
+			$error_message = '<small>' . $this->errors[$name][0] . '</small>';
+		}
+		$result = $this->openRow($has_error);
 
 		if (isset($label_opts['label'])) {
 			if ($wrap || isset($label_opts['inline']) && $label_opts['inline'] === true) {
-				$input_tag = '<div class="small-8 columns">' . $tag . '</div>';
+				$input_tag = '<div class="small-8 columns">' . $tag . $error_message . '</div>';
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
 				$result .= $tag . $label_opts['label'] . $this->closeRow();
 			}
 		} else {
-			$result .= $tag . $this->closeRow();
+			$result .= $tag . $error_message . $this->closeRow();
 		}
 
 		return $result;
