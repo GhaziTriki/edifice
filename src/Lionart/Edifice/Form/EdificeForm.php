@@ -207,9 +207,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function checkbox($name, $value = 1, $checked = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
+		$label = $this->processLabel($name, $options, false);
 
-		return $this->processItem($this->form->checkbox($name, $value, $checked, $options), $label);
+		return $this->processItem($this->form->checkbox($name, $value, $checked, $options), $label, false);
 	}
 
 	/**
@@ -385,7 +385,7 @@ class EdificeForm {
 	 *
 	 * @return array
 	 */
-	protected function processLabel($name, &$options) {
+	protected function processLabel($name, &$options, $wrap = true) {
 		$label_tag = null;
 		$inline    = null;
 		if (array_key_exists('label', $options)) {
@@ -412,7 +412,7 @@ class EdificeForm {
 
 				$label_tag = $this->form->label($name . '_label', $text, $label);
 
-				if ($inline === true) {
+				if ($inline === true && $wrap === true) {
 					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
 				}
 			}
@@ -429,13 +429,17 @@ class EdificeForm {
 	 *
 	 * @return string
 	 */
-	protected function processItem($tag, array $label_opts) {
+	protected function processItem($tag, array $label_opts, $wrap = true) {
 
 		$result = $this->openRow();
 
 		if (isset($label_opts['label']) && isset($label_opts['inline']) && $label_opts['inline'] === true) {
-			$input_tag = '<div class="small-8 columns">' . $tag . '</div>';
-			$result .= $label_opts['label'] . $input_tag . $this->closeRow();
+			if ($wrap) {
+				$input_tag = '<div class="small-8 columns">' . $tag . '</div>';
+				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
+			} else {
+				$result .= $tag . $label_opts['label'] . $this->closeRow();
+			}
 		} else {
 			$result .= $tag . $this->closeRow();
 		}

@@ -23,12 +23,13 @@ Edifice::text('first_name',
               array('label' => array
                        (
                             // Custom Edifice properties
-                           'text' => 'First Name'
-                           'align' => 'left | right'
-                           'inline' => 'true | false'
+                           'text' => 'First Name',
+                           'align' => 'left | right',
+                           'inline' => 'true | false',
+                           'error' => 'Error message'
 
                            // HTML Attributes
-                           'class' = 'red...'>
+                           'class' = 'red...',
                            'id' => 'label_id'
                        )
                    )
