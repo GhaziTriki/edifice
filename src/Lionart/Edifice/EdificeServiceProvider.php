@@ -27,8 +27,8 @@ class EdificeServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {
-		$this->app['edifice.form'] = $this->app->share(function () {
-			return new EdificeForm;
+		$this->app['edifice.form'] = $this->app->share(function ($app) {
+			return new EdificeForm($app['form']);
 		});
 	}
 
