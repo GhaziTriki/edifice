@@ -102,7 +102,52 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function text($name, $value = null, $options = array()) {
-		return $this->form->text($name, $value, $options);
+
+		// Opens div with row class
+		$result = $this->openRow();
+
+		// Processing label
+		if (array_key_exists('label', $options)) {
+
+			$label = $this->unsetFromArray('label', $options);
+			if (array_key_exists('text', $label)) {
+				$this->initInArrayIfNotSet('class', $label);
+
+				$inline = $this->unsetFromArray('inline', $label);
+				$align  = $this->unsetFromArray('align', $label);
+				$text   = $this->unsetFromArray('text', $label);
+
+				// Processing label inline ( the processing order is importantF )
+				if ($inline === true) {
+					$label['class'] = implode(' ', array('inline', $label['class']));
+				}
+
+				// Processing label alignment
+				if ($align === 'left') {
+					$label['class'] = implode(' ', array('left', $label['class']));
+				} elseif ($align === 'right') {
+					$label['class'] = implode(' ', array('right', $label['class']));
+				}
+
+				$label_tag = $this->form->label($name . '_label', $text, $label);
+
+				if ($inline === true) {
+					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
+				}
+			}
+		}
+
+		// Adds the input
+		$input_tag = $this->form->text($name, $value, $options);
+
+		if (isset($label_tag) && isset($inline) && $inline === true) {
+			$input_tag = '<div class="small-8 columns">' . $input_tag . '</div>';
+			$result .= $label_tag . $input_tag . $this->closeRow();
+		} else {
+			$result .= $input_tag . $this->closeRow();
+		}
+
+		return $result;
 	}
 
 	/**
@@ -305,5 +350,51 @@ class EdificeForm {
 		}
 
 		throw new \BadMethodCallException("Method {$method} does not exist.");
+	}
+
+	/**
+	 * Opens a div using Founcation row as class.²
+	 *
+	 * @return string
+	 */
+	protected function openRow() {
+		return '<div class="row">';
+	}
+
+	/**
+	 * Closes a div.
+	 * @return string
+	 */
+	protected function closeRow() {
+		return '</div>';
+	}
+
+	/**
+	 * Unsets a value from array then returns it.
+	 *
+	 * @param $array Array having a value to be unset
+	 * @param $key   The key that will be used to unset.
+	 *
+	 * @return mixed
+	 */
+	private function unsetFromArray($key, array &$array) {
+		if (array_key_exists($key, $array)) {
+			$value = $array[$key];
+			unset($array[$key]);
+		}
+
+		return isset($value) ? $value : null;
+	}
+
+	/**
+	 * Initialises an array key it does not exist.
+	 *
+	 * @param       $key
+	 * @param array $array
+	 */
+	private function initInArrayIfNotSet($key, array &$array) {
+		if (!array_key_exists($key, $array)) {
+			$array[$key] = '';
+		}
 	}
 }
