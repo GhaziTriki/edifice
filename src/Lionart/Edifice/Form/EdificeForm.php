@@ -365,35 +365,6 @@ class EdificeForm {
 	}
 
 	/**
-	 * Unset a value from array then returns it.
-	 *
-	 * @param $array Array having a value to be unset
-	 * @param $key   The key that will be used to unset.
-	 *
-	 * @return mixed
-	 */
-	private function unsetFromArray($key, array &$array) {
-		if (array_key_exists($key, $array)) {
-			$value = $array[$key];
-			unset($array[$key]);
-		}
-
-		return isset($value) ? $value : null;
-	}
-
-	/**
-	 * Initialises an array key it does not exist.
-	 *
-	 * @param       $key
-	 * @param array $array
-	 */
-	private function initInArrayIfNotSet($key, array &$array) {
-		if (!array_key_exists($key, $array)) {
-			$array[$key] = '';
-		}
-	}
-
-	/**
 	 * Processes the form input label.
 	 *
 	 * @param string $name    Form input name
@@ -406,13 +377,13 @@ class EdificeForm {
 		$inline    = null;
 		if (array_key_exists('label', $options)) {
 
-			$label = $this->unsetFromArray('label', $options);
+			$label = array_pull($options, 'label');
 			if (array_key_exists('text', $label)) {
-				$this->initInArrayIfNotSet('class', $label);
+				array_add($label, 'class', '');
 
-				$inline = $this->unsetFromArray('inline', $label);
-				$align  = $this->unsetFromArray('align', $label);
-				$text   = $this->unsetFromArray('text', $label);
+				$inline = array_pull($label, 'inline');
+				$align  = array_pull($label, 'align');
+				$text   = array_pull($label, 'text');
 
 				// Processing label inline ( the processing order is importantF )
 				if ($inline === true) {
