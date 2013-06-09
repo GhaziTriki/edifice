@@ -16,6 +16,12 @@ use Symfony\Component\Routing\RouteCollection;
  */
 
 class EdificeTestCase extends \PHPUnit_Framework_TestCase {
+
+	protected $urlGenerator;
+	protected $htmlBuilder;
+	protected $formBuilder;
+	protected $edifice;
+
 	protected function setUp() {
 		$this->urlGenerator = new UrlGenerator(new RouteCollection, Request::create('/foo', 'GET'));
 		$this->htmlBuilder  = new HtmlBuilder;
