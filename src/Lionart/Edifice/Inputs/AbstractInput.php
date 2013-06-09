@@ -58,7 +58,9 @@ abstract class AbstractInput {
 
 		if (isset($label_opts['label'])) {
 			if ($wrap or isset($label_opts['inline']) and $label_opts['inline'] === true) {
-				$input_tag = '<div class="small-8 columns">' . $tag . $error_message . '</div>';
+				// FIXME : should add columns ratio for Foundation CSS Styling
+				// $input_tag = '<div class="small-8 columns">' . $tag . $error_message . '</div>';
+				$input_tag = $tag . $error_message;
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
 				$result .= $tag . $label_opts['label'] . $this->closeRow();
@@ -103,7 +105,7 @@ abstract class AbstractInput {
 					$label['class'] = implode(' ', array('right', $label['class']));
 				}
 
-				$label_tag = $this->edifice->form->label($name . '_label', $text, $label);
+				$label_tag = $this->edifice->form->label($name, $text, $label);
 
 				if ($inline === true and $wrap === true) {
 					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
