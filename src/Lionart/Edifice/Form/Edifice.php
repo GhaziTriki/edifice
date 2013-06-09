@@ -12,7 +12,7 @@ use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
 use Illuminate\Support\MessageBag;
 
-class EdificeForm {
+class Edifice {
 
 
 	/**

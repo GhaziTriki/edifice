@@ -1,7 +1,7 @@
 <?php namespace Lionart\Edifice;
 
 use Illuminate\Support\ServiceProvider;
-use Lionart\Edifice\Form\EdificeForm;
+use Lionart\Edifice\Form\Edifice as EdificeFormBuilder;
 
 class EdificeServiceProvider extends ServiceProvider {
 
@@ -28,7 +28,7 @@ class EdificeServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 		$this->app['edifice.form'] = $this->app->share(function ($app) {
-			$edifice = new EdificeForm($app['form']);
+			$edifice = new EdificeFormBuilder($app['form']);
 
 			return $edifice->setSessionStore($app['session']);
 		});

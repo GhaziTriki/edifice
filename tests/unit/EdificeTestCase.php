@@ -5,7 +5,7 @@ use Illuminate\Html\HtmlBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
-use Lionart\Edifice\Form\EdificeForm;
+use Lionart\Edifice\Form\Edifice;
 use Mockery as m;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -43,6 +43,6 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 		$this->urlGenerator = new UrlGenerator(new RouteCollection, Request::create('/edifice', 'GET'));
 		$this->htmlBuilder  = new HtmlBuilder($this->urlGenerator);
 		$this->formBuilder  = new FormBuilder($this->htmlBuilder, $this->urlGenerator, 'csrfToken');
-		$this->edifice      = new EdificeForm($this->formBuilder);
+		$this->edifice      = new Edifice($this->formBuilder);
 	}
 }
