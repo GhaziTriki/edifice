@@ -11,6 +11,7 @@ namespace Lionart\Edifice\Form;
 use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
 use Illuminate\Support\MessageBag;
+use Lionart\Edifice\Inputs\Text;
 
 class Edifice {
 
@@ -18,7 +19,7 @@ class Edifice {
 	/**
 	 * @var \Illuminate\Support\MessageBag
 	 */
-	private $errors;
+	public $errors;
 
 	/**
 	 * The session store implementation.
@@ -26,6 +27,9 @@ class Edifice {
 	 * @var \Illuminate\Session\Store
 	 */
 	protected $session;
+
+	// TODO : externalise to a configuration file
+	private $render_map = array('text' => '\Lionart\Edifice\Inputs\Text');
 
 	/**
 	 * Create a new form builder instance.
@@ -113,6 +117,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function input($type, $name, $value = null, $options = array()) {
+
 		$label = $this->processLabel($name, $options);
 
 		return $this->processItem($name, $this->form->input($type, $name, $value, $options), $label);
@@ -128,9 +133,10 @@ class Edifice {
 	 * @return string
 	 */
 	public function text($name, $value = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
+		// TODO : use configuration to laod default renderer class or user csutom class
+		$text = new $this->render_map['text']($this);
 
-		return $this->processItem($name, $this->form->text($name, $value, $options), $label);
+		return $text->render($name, $value, $options);
 	}
 
 	/**
@@ -319,7 +325,7 @@ class Edifice {
 	 * @return  \Illuminate\Session\Store  $session
 	 */
 	public function getSessionStore() {
-		return $this->form->getSessionStore();
+		return $this->session;
 	}
 
 	/**
@@ -351,102 +357,4 @@ class Edifice {
 		throw new \BadMethodCallException("Method {$method} does not exist.");
 	}
 
-	/**
-	 * Opens a div using Founcation row as class.
-	 *
-	 * @param bool $error is set to true when a validation error occured.
-	 *
-	 * @return string
-	 */
-	protected function openRow($error = false) {
-		if ($error === false) {
-			return '<div class="row">';
-		} else {
-			return '<div class="row error">';
-		}
-	}
-
-	/**
-	 * Closes a div.
-	 * @return string
-	 */
-	protected function closeRow() {
-		return '</div>';
-	}
-
-	/**
-	 * Processes the form input label.
-	 *
-	 * @param string $name    Form input name
-	 * @param array  $options Form input options, label options will be extracted
-	 *
-	 * @return array
-	 */
-	protected function processLabel($name, &$options, $wrap = true) {
-		$label_tag = null;
-		$inline    = null;
-		if (array_key_exists('label', $options)) {
-
-			$label = array_pull($options, 'label');
-			if (array_key_exists('text', $label)) {
-				array_add($label, 'class', '');
-
-				$inline = array_pull($label, 'inline');
-				$align  = array_pull($label, 'align');
-				$text   = array_pull($label, 'text');
-
-				// Processing label inline ( the processing order is importantF )
-				if ($inline === true) {
-					$label['class'] = implode(' ', array('inline', $label['class']));
-				}
-
-				// Processing label alignment
-				if ($align === 'left') {
-					$label['class'] = implode(' ', array('left', $label['class']));
-				} elseif ($align === 'right') {
-					$label['class'] = implode(' ', array('right', $label['class']));
-				}
-
-				$label_tag = $this->form->label($name . '_label', $text, $label);
-
-				if ($inline === true and $wrap === true) {
-					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
-				}
-			}
-		}
-
-		return array('label' => $label_tag, 'inline' => $inline);
-	}
-
-	/**
-	 * Processes a HTML input with its label.
-	 *
-	 * @param string $tag
-	 * @param array  $label_opts
-	 *
-	 * @return string
-	 */
-	protected function processItem($name, $tag, array $label_opts, $wrap = true) {
-
-		$has_error     = false;
-		$error_message = '';
-		if (!is_null($this->errors) and array_key_exists($name, $this->errors)) {
-			$has_error     = true;
-			$error_message = '<small>' . $this->errors[$name][0] . '</small>';
-		}
-		$result = $this->openRow($has_error);
-
-		if (isset($label_opts['label'])) {
-			if ($wrap or isset($label_opts['inline']) and $label_opts['inline'] === true) {
-				$input_tag = '<div class="small-8 columns">' . $tag . $error_message . '</div>';
-				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
-			} else {
-				$result .= $tag . $label_opts['label'] . $this->closeRow();
-			}
-		} else {
-			$result .= $tag . $error_message . $this->closeRow();
-		}
-
-		return $result;
-	}
 }

@@ -20,22 +20,22 @@ use Symfony\Component\Routing\RouteCollection;
 class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var Illuminate\Routing\UrlGenerator
+	 * @var \Illuminate\Routing\UrlGenerator
 	 */
 	protected $urlGenerator;
 
 	/**
-	 * @var Illuminate\Html\HtmlBuilder
+	 * @var \Illuminate\Html\HtmlBuilder
 	 */
 	protected $htmlBuilder;
 
 	/**
-	 * @var Illuminate\Html\FormBuilder
+	 * @var \Illuminate\Html\FormBuilder
 	 */
 	protected $formBuilder;
 
 	/**
-	 * @var Lionart\Edifice\Form\EdificeForm
+	 * @var \Lionart\Edifice\Form\Edifice
 	 */
 	protected $edifice;
 
