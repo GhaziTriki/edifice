@@ -43,6 +43,6 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 		$this->urlGenerator = new UrlGenerator(new RouteCollection, Request::create('/edifice', 'GET'));
 		$this->htmlBuilder  = new HtmlBuilder($this->urlGenerator);
 		$this->formBuilder  = new FormBuilder($this->htmlBuilder, $this->urlGenerator, 'csrfToken');
-		$this->edifice      = new EdificeForm($this->formBuilder, new Store());
+		$this->edifice      = new EdificeForm($this->formBuilder);
 	}
 }

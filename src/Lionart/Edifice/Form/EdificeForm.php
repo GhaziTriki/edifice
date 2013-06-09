@@ -21,15 +21,21 @@ class EdificeForm {
 	private $errors;
 
 	/**
+	 * The session store implementation.
+	 *
+	 * @var \Illuminate\Session\Store
+	 */
+	protected $session;
+
+	/**
 	 * Create a new form builder instance.
 	 *
 	 * @param  \Illuminate\Html\FormBuilder $form
 	 *
 	 * @return void
 	 */
-	public function __construct(FormBuilder $form, Store $session) {
-		$this->form    = $form;
-		$this->session = $session;
+	public function __construct(FormBuilder $form) {
+		$this->form = $form;
 	}
 
 	/**
@@ -40,7 +46,9 @@ class EdificeForm {
 	 * @return string
 	 */
 	public function open(array $options = array()) {
-		$this->errors = $this->session->get('errors');
+		if (isset($this->session)) {
+			$this->errors = $this->session->get('errors');
+		}
 
 		if (!is_null($this->errors)) {
 			$this->errors = $this->errors->getMessages();
@@ -322,7 +330,9 @@ class EdificeForm {
 	 * @return \Illuminate\Html\FormBuilder
 	 */
 	public function setSessionStore(Session $session) {
-		return $this->form->setSessionStore($session);
+		$this->session = $session;
+
+		return $this;
 	}
 
 	/**
@@ -399,7 +409,7 @@ class EdificeForm {
 
 				$label_tag = $this->form->label($name . '_label', $text, $label);
 
-				if ($inline === true && $wrap === true) {
+				if ($inline === true and $wrap === true) {
 					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
 				}
 			}
@@ -420,14 +430,14 @@ class EdificeForm {
 
 		$has_error     = false;
 		$error_message = '';
-		if (!is_null($this->errors) && array_key_exists($name, $this->errors)) {
+		if (!is_null($this->errors) and array_key_exists($name, $this->errors)) {
 			$has_error     = true;
 			$error_message = '<small>' . $this->errors[$name][0] . '</small>';
 		}
 		$result = $this->openRow($has_error);
 
 		if (isset($label_opts['label'])) {
-			if ($wrap || isset($label_opts['inline']) && $label_opts['inline'] === true) {
+			if ($wrap or isset($label_opts['inline']) and $label_opts['inline'] === true) {
 				$input_tag = '<div class="small-8 columns">' . $tag . $error_message . '</div>';
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
