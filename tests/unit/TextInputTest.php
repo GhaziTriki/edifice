@@ -1,18 +1,20 @@
 <?php
 
-class TextInputTestTest extends \PHPUnit_Framework_TestCase
-{
-    protected function setUp()
-    {
-    }
+require_once 'EdificeTestCase.php';
 
-    protected function tearDown()
-    {
-    }
+use Illuminate\Http\Request;
+use Mockery as m;
+use Symfony\Component\Routing\RouteCollection;
 
-    // tests
-    public function testMe()
-    {
-    }
+class TextInputTest extends \EdificeTestCase {
+	protected function setUp() {
+	}
+
+	protected function tearDown() {
+	}
+
+	// tests
+	public function testMe() {
+	}
 
 }
