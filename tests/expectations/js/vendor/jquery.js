@@ -680,7 +680,7 @@ jQuery.extend({
         ( text + "" ).replace( rtrim, "" );
     },
 
-  // results is for internal usage only
+  // expectations is for internal usage only
   makeArray: function( arr, results ) {
     var ret = results || [];
 
@@ -5189,19 +5189,19 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
       // Get initial elements from seed or context
       elems = seed || multipleContexts( selector || "*", context.nodeType ? [ context ] : context, [] ),
 
-      // Prefilter to get matcher input, preserving a map for seed-results synchronization
+      // Prefilter to get matcher input, preserving a map for seed-expectations synchronization
       matcherIn = preFilter && ( seed || !selector ) ?
         condense( elems, preMap, preFilter, context, xml ) :
         elems,
 
       matcherOut = matcher ?
-        // If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
+        // If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting expectations,
         postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
 
           // ...intermediate processing is necessary
           [] :
 
-          // ...otherwise use results directly
+          // ...otherwise use expectations directly
           results :
         matcherIn;
 
@@ -5239,7 +5239,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
           postFinder( null, (matcherOut = []), temp, xml );
         }
 
-        // Move matched elements from seed to results to keep them synchronized
+        // Move matched elements from seed to expectations to keep them synchronized
         i = matcherOut.length;
         while ( i-- ) {
           if ( (elem = matcherOut[i]) &&
@@ -5250,7 +5250,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
         }
       }
 
-    // Add elements to results, through postFinder if defined
+    // Add elements to expectations, through postFinder if defined
     } else {
       matcherOut = condense(
         matcherOut === results ?
@@ -5341,7 +5341,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
         cachedruns = matcherCachedRuns;
       }
 
-      // Add elements passing elementMatchers directly to results
+      // Add elements passing elementMatchers directly to expectations
       // Keep `i` a string if there are no elements so `matchedCount` will be "00" below
       for ( ; (elem = elems[i]) != null; i++ ) {
         if ( byElement && elem ) {
@@ -5394,7 +5394,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
           setMatched = condense( setMatched );
         }
 
-        // Add matches to results
+        // Add matches to expectations
         push.apply( results, setMatched );
 
         // Seedless set matches succeeding multiple successful matchers stipulate sorting
@@ -9542,7 +9542,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
         var doc;
 
         if ( jQuery.isWindow( elem ) ) {
-          // As of 5/8/2012 this will yield incorrect results for Mobile Safari, but there
+          // As of 5/8/2012 this will yield incorrect expectations for Mobile Safari, but there
           // isn't a whole lot we can do. See pull request at this URL for discussion:
           // https://github.com/jquery/jquery/pull/764
           return elem.document.documentElement[ "client" + name ];

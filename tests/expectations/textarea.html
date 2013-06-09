@@ -4,8 +4,8 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
     <title>Edifice Foundation 4 - Textarea expectations</title>
-    <link rel="stylesheet" href="../css/normalize.css"/>
-    <link rel="stylesheet" href="../css/foundation.min.css"/>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/foundation.min.css"/>
 </head>
 <body>
 
@@ -45,10 +45,21 @@
     <textarea name="comments" name="comments" placeholder="Simple text input without label with error"></textarea>
 </div>
 
-<script src="../js/vendor/zepto.js"></script>
-<script src="../js/vendor/jquery.js"></script>
-<script src="../js/vendor/custom.modernizr.js"></script>
-<script src="../js/foundation/foundation.js"></script>
+<div class="row large-3 error">
+    <label for="comments" class="left">Comments</label>
+    <textarea name="comments" placeholder="Simple text area with label"></textarea>
+</div>
+
+<div class="row large-3 error">
+    <label for="comments" class="left">Comments</label>
+    <textarea name="comments" placeholder="Simple text area with label"></textarea>
+    <small>Required</small>
+</div>
+
+<script src="js/vendor/zepto.js"></script>
+<script src="js/vendor/jquery.js"></script>
+<script src="js/vendor/custom.modernizr.js"></script>
+<script src="js/foundation/foundation.js"></script>
 <script> $(document).foundation(); </script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Edifice Foundation 4 - Checkbox Input Expectations</title>
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/foundation.min.css"/>
+</head>
+<body>
+
+<div class="row large-4">
+    <input type="checkbox" name="accept_terms"/>
+</div>
+
+<div class="row large-4">
+    <label for="accept_terms">
+        <input type="checkbox" name="accept_terms"/>
+        I accept terms
+    </label>
+</div>
+
+<div class="row large-4 error">
+    <label for="accept_terms">
+        <input type="checkbox" name="accept_terms"/>
+        I accept terms
+    </label>
+</div>
+
+<div class="row large-4 error">
+    <label for="accept_terms">
+        <input type="checkbox" name="accept_terms"/>
+        I accept terms
+    </label>
+    <small>You must accept terms to continue</small>
+</div>
+
+<script src="js/vendor/zepto.js"></script>
+<script src="js/vendor/jquery.js"></script>
+<script src="js/vendor/custom.modernizr.js"></script>
+<script src="js/foundation/foundation.js"></script>
+<script> $(document).foundation(); </script>
+</body>
+</html>
