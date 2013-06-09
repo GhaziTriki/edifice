@@ -11,4 +11,12 @@ class FormTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
+	public function testFormOpen() {
+		$this->edifice->open();
+	}
+
+	public function testFormClose() {
+		$this->assertEquals('</form>', $this->edifice->close());
+	}
+
 }
