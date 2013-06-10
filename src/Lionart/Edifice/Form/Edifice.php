@@ -133,7 +133,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function text($name, $value = null, $options = array()) {
-		// TODO : use configuration to laod default renderer class or user csutom class
+		// TODO : use configuration to load default renderer class or user custom class
 		$text = new $this->render_map['text']($this);
 
 		return $text->render($name, $value, $options);

@@ -16,7 +16,7 @@ if (!function_exists('array_add_to_key')) {
 	 */
 	function array_add_to_key(&$array, $key, $value) {
 		if (!empty($value)) {
-			$array[$key] = implode(' ', array($value, $array[$key]));
+			$array[$key] = implode(' ', array($array[$key], $value));
 		}
 	}
 }

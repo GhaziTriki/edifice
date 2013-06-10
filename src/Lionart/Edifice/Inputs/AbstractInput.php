@@ -34,20 +34,23 @@ abstract class AbstractInput {
 	 * @return mixed
 	 */
 	public function render($name, $value = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
+		$label  = $this->processLabel($name, $options);
+		$prefix = $this->processPrefix($name, $options);
 
-		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label);
+		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label, $prefix);
 	}
 
 	/**
 	 * Processes a HTML input with its label.
 	 *
-	 * @param string $tag
-	 * @param array  $label_opts
+	 * @param       $name
+	 * @param       $tag
+	 * @param array $label_opts
+	 * @param       $prefix
 	 *
 	 * @return string
 	 */
-	protected function process($name, $tag, array $label_opts) {
+	protected function process($name, $tag, array $label_opts, $prefix = null) {
 
 		$has_error     = false;
 		$error_message = '';
@@ -55,7 +58,7 @@ abstract class AbstractInput {
 			$has_error     = true;
 			$error_message = '<small>' . $this->edifice->errors[$name][0] . '</small>';
 		}
-		$result = $this->openRow($has_error);
+		$result = $this->openRow($has_error, isset($prefix));
 
 		if (isset($label_opts['label'])) {
 			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
@@ -65,6 +68,9 @@ abstract class AbstractInput {
 			} else {
 				$result .= $label_opts['label'] . $tag . $this->closeRow();
 			}
+		} elseif (isset($prefix)) {
+			$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
+			$result .= $prefix . $input_tag . $this->closeRow();
 		} else {
 			$result .= $tag . $error_message . $this->closeRow();
 		}
@@ -80,7 +86,7 @@ abstract class AbstractInput {
 	 *
 	 * @return array
 	 */
-	protected function processLabel($name, &$options, $wrap = true) {
+	protected function processLabel($name, &$options) {
 		$label_tag = null;
 		$inline    = null;
 		if (array_key_exists('label', $options)) {
@@ -106,7 +112,7 @@ abstract class AbstractInput {
 
 				$label_tag = $this->edifice->form->label($name, $text, $label);
 
-				if ($inline === true and $wrap === true) {
+				if ($inline === true) {
 					$label_tag = '<div class="small-4 large-4 columns">' . $label_tag . '</div>';
 				}
 			}
@@ -115,19 +121,48 @@ abstract class AbstractInput {
 		return array('label' => $label_tag, 'inline' => $inline);
 	}
 
+
 	/**
-	 * Opens a div using Founcation row as class.
+	 * Processes the form input prefix.
 	 *
-	 * @param bool $error is set to true when a validation error occured.
+	 * @param string $name    Form input name
+	 * @param array  $options Form input options, label options will be extracted
 	 *
 	 * @return string
 	 */
-	protected function openRow($error = false) {
-		if ($error === false) {
-			return '<div class="row">';
-		} else {
-			return '<div class="row error">';
+	protected function processPrefix($name, &$options) {
+		$label_tag = null;
+		if (array_key_exists('prefix', $options)) {
+			$prefix = array_pull($options, 'prefix');
+			if (array_key_exists('text', $prefix)) {
+				$text = array_pull($prefix, 'text');
+
+				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="prefix">' . $text . '</span>' . '</div>';
+			}
 		}
+
+		return $label_tag;
+	}
+
+	/**
+	 * Opens a div using Founcation row as class.
+	 *
+	 * @param bool $error is set to true when a validation error occurs.
+	 * @param bool $prefixed
+	 *
+	 * @return string
+	 */
+	protected function openRow($error = false, $prefixed = false) {
+		$attr['class'] = 'row';
+
+		if ($error === true) {
+			array_add_to_key($attr, 'class', 'error');
+		}
+		if ($prefixed === true) {
+			array_add_to_key($attr, 'class', 'collapse');
+		}
+
+		return '<div class="' . $attr['class'] . '">';
 	}
 
 	/**

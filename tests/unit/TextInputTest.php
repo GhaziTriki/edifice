@@ -21,7 +21,7 @@ class TextInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><input placeholder="First name" name="first_name" type="text"></div>', $textPlaceholder);
 	}
 
-	public function testTopLabelText() {
+	public function testTextWithTopLabel() {
 		$textWithLabelTopLeft  = $this->edifice->text('first_name', null, array('label' => array('text' => 'First name')));
 		$textWithLabelTopRight = $this->edifice->text('first_name', null, array('label' => array('text' => 'First name', 'align' => 'right')));
 
@@ -29,11 +29,17 @@ class TextInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><label for="first_name" class="right">First name</label><input name="first_name" type="text" id="first_name"></div>', $textWithLabelTopRight);
 	}
 
-	public function testInlineLabelText() {
+	public function testTextWithInlineLabel() {
 		$textWithLabelInlineLeft  = $this->edifice->text('first_name', null, array('label' => array('text' => 'First name', 'inline' => true)));
 		$textWithLabelInlineRight = $this->edifice->text('first_name', null, array('label' => array('text' => 'First name', 'inline' => true, 'align' => 'right')));
 
 		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="first_name" class="inline">First name</label></div><div class="small-8 large-8 columns"><input name="first_name" type="text" id="first_name"></div></div>', $textWithLabelInlineLeft);
-		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="first_name" class="right inline">First name</label></div><div class="small-8 large-8 columns"><input name="first_name" type="text" id="first_name"></div></div>', $textWithLabelInlineRight);
+		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="first_name" class="inline right">First name</label></div><div class="small-8 large-8 columns"><input name="first_name" type="text" id="first_name"></div></div>', $textWithLabelInlineRight);
+	}
+
+	public function testTextWithPrefix() {
+		$textWithPrefix = $this->edifice->text('site_url', 'github.com', array('prefix' => array('text' => 'http://')));
+
+		$this->assertEquals('<div class="row collapse"><div class="small-4 large-4 columns"><span class="prefix">http://</span></div><div class="small-8 large-8 columns"><input name="site_url" type="text" value="github.com"></div></div>', $textWithPrefix);
 	}
 }
