@@ -47,6 +47,7 @@ abstract class AbstractInput {
 	 * @param       $tag
 	 * @param array $label_opts
 	 * @param       $prefix
+	 * @param       $postfix
 	 *
 	 * @return string
 	 */
@@ -54,7 +55,7 @@ abstract class AbstractInput {
 
 		$has_error     = false;
 		$error_message = '';
-		if (!is_null($this->edifice->getErrors()) and array_key_exists($name, $this->edifice->getErrors())) {
+		if (!is_null($this->edifice->getErrors()) and array_key_exists($name, $this->edifice->getErrors()->getMessages())) {
 			$has_error     = true;
 			$error_message = '<small>' . $this->edifice->getErrors()[$name][0] . '</small>';
 		}
@@ -174,10 +175,11 @@ abstract class AbstractInput {
 	}
 
 	/**
-	 * Opens a div using Founcation row as class.
+	 * Opens a div using Foundation row as class.
 	 *
 	 * @param bool $error is set to true when a validation error occurs.
 	 * @param bool $prefixed
+	 * @param bool $postfixed
 	 *
 	 * @return string
 	 */
