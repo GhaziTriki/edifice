@@ -34,10 +34,11 @@ abstract class AbstractInput {
 	 * @return mixed
 	 */
 	public function render($name, $value = null, $options = array()) {
-		$label  = $this->processLabel($name, $options);
-		$prefix = $this->processPrefix($name, $options);
+		$label   = $this->processLabel($name, $options);
+		$prefix  = $this->processPrefix($name, $options);
+		$postfix = $this->processpostfix($name, $options);
 
-		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label, $prefix);
+		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label, $prefix, $postfix);
 	}
 
 	/**
@@ -50,7 +51,7 @@ abstract class AbstractInput {
 	 *
 	 * @return string
 	 */
-	protected function process($name, $tag, array $label_opts, $prefix = null) {
+	protected function process($name, $tag, array $label_opts, $prefix = null, $postfix = null) {
 
 		$has_error     = false;
 		$error_message = '';
@@ -58,7 +59,7 @@ abstract class AbstractInput {
 			$has_error     = true;
 			$error_message = '<small>' . $this->edifice->errors[$name][0] . '</small>';
 		}
-		$result = $this->openRow($has_error, isset($prefix));
+		$result = $this->openRow($has_error, isset($prefix), isset($postfix));
 
 		if (isset($label_opts['label'])) {
 			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
@@ -68,9 +69,16 @@ abstract class AbstractInput {
 			} else {
 				$result .= $label_opts['label'] . $tag . $this->closeRow();
 			}
-		} elseif (isset($prefix)) {
-			$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
-			$result .= $prefix . $input_tag . $this->closeRow();
+		} elseif (isset($prefix) || isset($postfix)) {
+			if (isset($prefix)) {
+				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
+				$result .= $prefix . $input_tag;
+			}
+			if (isset($postfix)) {
+				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
+				$result .= $input_tag . $postfix;
+			}
+			$result .= $this->closeRow();
 		} else {
 			$result .= $tag . $error_message . $this->closeRow();
 		}
@@ -145,6 +153,28 @@ abstract class AbstractInput {
 	}
 
 	/**
+	 * Processes the form input postfix.
+	 *
+	 * @param string $name    Form input name
+	 * @param array  $options Form input options, label options will be extracted
+	 *
+	 * @return string
+	 */
+	protected function processpostfix($name, &$options) {
+		$label_tag = null;
+		if (array_key_exists('postfix', $options)) {
+			$postfix = array_pull($options, 'postfix');
+			if (array_key_exists('text', $postfix)) {
+				$text = array_pull($postfix, 'text');
+
+				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="postfix">' . $text . '</span>' . '</div>';
+			}
+		}
+
+		return $label_tag;
+	}
+
+	/**
 	 * Opens a div using Founcation row as class.
 	 *
 	 * @param bool $error is set to true when a validation error occurs.
@@ -152,13 +182,13 @@ abstract class AbstractInput {
 	 *
 	 * @return string
 	 */
-	protected function openRow($error = false, $prefixed = false) {
+	protected function openRow($error = false, $prefixed = false, $postfixed = false) {
 		$attr['class'] = 'row';
 
 		if ($error === true) {
 			array_add_to_key($attr, 'class', 'error');
 		}
-		if ($prefixed === true) {
+		if ($prefixed === true || $postfixed === true) {
 			array_add_to_key($attr, 'class', 'collapse');
 		}
 

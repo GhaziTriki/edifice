@@ -42,4 +42,10 @@ class TextInputTest extends EdificeTestCase {
 
 		$this->assertEquals('<div class="row collapse"><div class="small-4 large-4 columns"><span class="prefix">http://</span></div><div class="small-8 large-8 columns"><input name="site_url" type="text" value="github.com"></div></div>', $textWithPrefix);
 	}
+
+	public function testTextWithPostfix() {
+		$textWithPrefix = $this->edifice->text('site_url', 'github', array('postfix' => array('text' => '.com')));
+
+		$this->assertEquals('<div class="row collapse"><div class="small-8 large-8 columns"><input name="site_url" type="text" value="github"></div><div class="small-4 large-4 columns"><span class="postfix">.com</span></div></div>', $textWithPrefix);
+	}
 }
