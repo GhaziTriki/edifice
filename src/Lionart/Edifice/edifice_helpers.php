@@ -7,6 +7,20 @@
  */
 
 
+if (!function_exists('array_add_to_key')) {
+	/**
+	 * Adds a value to class attribute.
+	 *
+	 * @param $array
+	 * @param $value
+	 */
+	function array_add_to_key(&$array, $key, $value) {
+		if (!empty($value)) {
+			$array[$key] = implode(' ', array($value, $array[$key]));
+		}
+	}
+}
+
 if (!function_exists('array_clean')) {
 	/**
 	 * Removes keys having empty values from array and trims values.

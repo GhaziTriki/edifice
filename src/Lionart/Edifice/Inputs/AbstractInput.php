@@ -99,13 +99,7 @@ abstract class AbstractInput {
 					$label['class'] = implode(' ', array('inline', $label['class']));
 				}
 
-				// Processing label alignment
-				if ($align === 'left') {
-					$label['class'] = implode(' ', array('left', $label['class']));
-				} elseif ($align === 'right') {
-					$label['class'] = implode(' ', array('right', $label['class']));
-				}
-
+				array_add_to_key($label, 'class', $align);
 				array_clean($label);
 
 				$label_tag = $this->edifice->form->label($name, $text, $label);
