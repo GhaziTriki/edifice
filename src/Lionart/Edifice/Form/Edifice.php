@@ -11,7 +11,6 @@ namespace Lionart\Edifice\Form;
 use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
 use Illuminate\Support\MessageBag;
-use Lionart\Edifice\Inputs\Text;
 
 class Edifice {
 
@@ -29,7 +28,8 @@ class Edifice {
 	protected $session;
 
 	// TODO : externalise to a configuration file
-	private $render_map = array('text'     => '\Lionart\Edifice\Inputs\Text',
+	private $render_map = array('email'    => '\Lionart\Edifice\Inputs\Email',
+								'text'     => '\Lionart\Edifice\Inputs\Text',
 								'textarea' => '\Lionart\Edifice\Inputs\Textarea');
 
 	/**
@@ -177,9 +177,10 @@ class Edifice {
 	 * @return string
 	 */
 	public function email($name, $value = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
+		// TODO : use configuration to load default renderer class or user custom class
+		$text = new $this->render_map['email']($this);
 
-		return $this->processItem($name, $this->form->email($name, $value, $options), $label);
+		return $text->render($name, $value, $options);
 	}
 
 	/**
@@ -336,9 +337,9 @@ class Edifice {
 	 *
 	 * @param  \Illuminate\Session\Store $session
 	 *
-	 * @return \Illuminate\Html\FormBuilder
+	 * @return $this
 	 */
-	public function setSessionStore(Session $session) {
+	public function setSessionStore(Store $session) {
 		$this->session = $session;
 
 		return $this;
@@ -355,6 +356,7 @@ class Edifice {
 	 * @param  array  $parameters
 	 *
 	 * @return mixed
+	 * @throws \BadMethodCallException
 	 */
 	public function __call($method, $parameters) {
 		if (isset($this->macros[$method])) {

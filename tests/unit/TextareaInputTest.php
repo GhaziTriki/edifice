@@ -11,7 +11,7 @@ class TextareaInputTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	public function testSimpleText() {
+	public function testSimpleTextArea() {
 		$textSimple        = $this->edifice->textarea('user_comments');
 		$textRequiredStyle = $this->edifice->textarea('user_comments', 'Ghazi', array('class' => 'required', 'required' => 'required'));
 		$textPlaceholder   = $this->edifice->textarea('user_comments', null, array('placeholder' => 'User comments'));
@@ -21,7 +21,7 @@ class TextareaInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><textarea placeholder="User comments" name="user_comments" cols="50" rows="10"></textarea></div>', $textPlaceholder);
 	}
 
-	public function testTextWithTopLabel() {
+	public function testTextAreaWithTopLabel() {
 		$textWithLabelTopLeft  = $this->edifice->textarea('user_comments', null, array('label' => array('text' => 'User comments')));
 		$textWithLabelTopRight = $this->edifice->textarea('user_comments', null, array('label' => array('text' => 'User comments', 'align' => 'right')));
 
@@ -29,7 +29,7 @@ class TextareaInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><label for="user_comments" class="right">User comments</label><textarea name="user_comments" cols="50" rows="10" id="user_comments"></textarea></div>', $textWithLabelTopRight);
 	}
 
-	public function testTextWithInlineLabel() {
+	public function testTextAreaWithInlineLabel() {
 		$textWithLabelInlineLeft  = $this->edifice->textarea('user_comments', null, array('label' => array('text' => 'User comments', 'inline' => true)));
 		$textWithLabelInlineRight = $this->edifice->textarea('user_comments', null, array('label' => array('text' => 'User comments', 'inline' => true, 'align' => 'right')));
 

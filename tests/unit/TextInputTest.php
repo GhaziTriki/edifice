@@ -11,7 +11,7 @@ class TextInputTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	public function testSimpleText() {
+	public function testSimpleTextInput() {
 		$textSimple        = $this->edifice->text('first_name');
 		$textRequiredStyle = $this->edifice->text('first_name', 'Ghazi', array('class' => 'required', 'required' => 'required'));
 		$textPlaceholder   = $this->edifice->text('first_name', null, array('placeholder' => 'First name'));
