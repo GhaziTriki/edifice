@@ -47,7 +47,7 @@ abstract class AbstractInput {
 	 *
 	 * @return string
 	 */
-	protected function process($name, $tag, array $label_opts, $wrap = true) {
+	protected function process($name, $tag, array $label_opts) {
 
 		$has_error     = false;
 		$error_message = '';
@@ -58,13 +58,12 @@ abstract class AbstractInput {
 		$result = $this->openRow($has_error);
 
 		if (isset($label_opts['label'])) {
-			if ($wrap or isset($label_opts['inline']) and $label_opts['inline'] === true) {
+			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
 				// FIXME : should add columns ratio for Foundation CSS Styling
-				// $input_tag = '<div class="small-8 columns">' . $tag . $error_message . '</div>';
-				$input_tag = $tag . $error_message;
+				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
-				$result .= $tag . $label_opts['label'] . $this->closeRow();
+				$result .= $label_opts['label'] . $tag . $this->closeRow();
 			}
 		} else {
 			$result .= $tag . $error_message . $this->closeRow();
@@ -96,16 +95,19 @@ abstract class AbstractInput {
 
 				// Processing label inline ( the processing order is important )
 				if ($inline === true) {
-					$label['class'] = implode(' ', array('inline', $label['class']));
+					array_add_to_key($label, 'class', 'inline');
 				}
 
-				array_add_to_key($label, 'class', $align);
+				if ($align === 'left' or $align === 'right') {
+					array_add_to_key($label, 'class', $align);
+				}
+
 				array_clean($label);
 
 				$label_tag = $this->edifice->form->label($name, $text, $label);
 
 				if ($inline === true and $wrap === true) {
-					$label_tag = '<div class="small-4 columns">' . $label_tag . '</div>';
+					$label_tag = '<div class="small-4 large-4 columns">' . $label_tag . '</div>';
 				}
 			}
 		}
