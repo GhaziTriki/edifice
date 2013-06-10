@@ -54,9 +54,9 @@ abstract class AbstractInput {
 
 		$has_error     = false;
 		$error_message = '';
-		if (!is_null($this->edifice->errors) and array_key_exists($name, $this->edifice->errors)) {
+		if (!is_null($this->edifice->getErrors()) and array_key_exists($name, $this->edifice->getErrors())) {
 			$has_error     = true;
-			$error_message = '<small>' . $this->edifice->errors[$name][0] . '</small>';
+			$error_message = '<small>' . $this->edifice->getErrors()[$name][0] . '</small>';
 		}
 		$result = $this->openRow($has_error, isset($prefix), isset($postfix));
 

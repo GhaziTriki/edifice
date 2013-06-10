@@ -19,7 +19,7 @@ class Edifice {
 	/**
 	 * @var \Illuminate\Support\MessageBag
 	 */
-	public $errors;
+	private $errors;
 
 	/**
 	 * The session store implementation.
@@ -342,6 +342,10 @@ class Edifice {
 		$this->session = $session;
 
 		return $this;
+	}
+
+	public function getErrors() {
+		return $this->errors;
 	}
 
 	/**
