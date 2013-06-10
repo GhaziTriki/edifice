@@ -30,6 +30,7 @@ abstract class AbstractInput {
 	 * @param       $name
 	 * @param null  $value
 	 * @param array $options
+	 *
 	 * @return mixed
 	 */
 	public function render($name, $value = null, $options = array()) {
@@ -87,13 +88,13 @@ abstract class AbstractInput {
 
 			$label = array_pull($options, 'label');
 			if (array_key_exists('text', $label)) {
-				array_add($label, 'class', '');
+				$label = array_add($label, 'class', '');
 
 				$inline = array_pull($label, 'inline');
 				$align  = array_pull($label, 'align');
 				$text   = array_pull($label, 'text');
 
-				// Processing label inline ( the processing order is importantF )
+				// Processing label inline ( the processing order is important )
 				if ($inline === true) {
 					$label['class'] = implode(' ', array('inline', $label['class']));
 				}
@@ -104,6 +105,8 @@ abstract class AbstractInput {
 				} elseif ($align === 'right') {
 					$label['class'] = implode(' ', array('right', $label['class']));
 				}
+
+				array_clean($label);
 
 				$label_tag = $this->edifice->form->label($name, $text, $label);
 
@@ -138,4 +141,5 @@ abstract class AbstractInput {
 	protected function closeRow() {
 		return '</div>';
 	}
+
 }

@@ -22,6 +22,9 @@
         "classmap": [
             "src/migrations"
         ],
+        "files": [
+            "src/Lionart/Edifice/edifice_helpers.php"
+        ],
         "psr-0": {
             "Lionart\\Edifice": "src/"
         }
