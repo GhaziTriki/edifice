@@ -9,4 +9,4 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev
 
-script: php codecept.phar run
+script: php codecept.phar run --coverage
