@@ -29,7 +29,8 @@ class Edifice {
 	protected $session;
 
 	// TODO : externalise to a configuration file
-	private $render_map = array('text' => '\Lionart\Edifice\Inputs\Text');
+	private $render_map = array('text'     => '\Lionart\Edifice\Inputs\Text',
+								'textarea' => '\Lionart\Edifice\Inputs\Textarea');
 
 	/**
 	 * Create a new form builder instance.
@@ -205,9 +206,11 @@ class Edifice {
 	 * @return string
 	 */
 	public function textarea($name, $value = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
 
-		return $this->processItem($name, $this->form->textarea($name, $value, $options), $label);
+		// TODO : use configuration to load default renderer class or user custom class
+		$text = new $this->render_map['textarea']($this);
+
+		return $text->render($name, $value, $options);
 	}
 
 	/**

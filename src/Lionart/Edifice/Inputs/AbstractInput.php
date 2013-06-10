@@ -4,7 +4,6 @@
  * User: LionArt
  * Date: 09/06/13
  * Time: 19:34
- * To change this template use File | Settings | File Templates.
  */
 
 namespace Lionart\Edifice\Inputs;
