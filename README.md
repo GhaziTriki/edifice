@@ -3,6 +3,7 @@ Edifice - Laravel 4 From Builder
 
 A Laravel 4 form builder package inspired from formtastic and using Foundation CSS framework.
 
+[![Build Status](https://travis-ci.org/LionArt/edifice.png?branch=master)](https://travis-ci.org/LionArt/edifice)
 
 Setup
 =======
@@ -27,7 +28,6 @@ Edifice::text('first_name',
                            'align' => 'left | right',
                            'inline' => 'true | false',
                            'error' => 'Error message'
-
                            // HTML Attributes
                            'class' = 'red...',
                            'id' => 'label_id'
