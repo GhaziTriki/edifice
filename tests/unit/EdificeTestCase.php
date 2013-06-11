@@ -15,7 +15,6 @@ use Symfony\Component\Routing\RouteCollection;
  * User: LionArt
  * Date: 09/06/13
  * Time: 13:24
- * To change this template use File | Settings | File Templates.
  */
 
 class EdificeTestCase extends \PHPUnit_Framework_TestCase {
@@ -50,6 +49,11 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 	 */
 	protected $edifice;
 
+	/**
+	 * @var \Lionart\Edifice\EdificeServiceProvider
+	 */
+	protected $edificeServiceProvider;
+
 	protected function setUp() {
 
 		$app = new \Illuminate\Container\Container();
@@ -59,8 +63,8 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 		$app['html']    = $this->htmlBuilder = new HtmlBuilder($this->urlGenerator);
 		$app['form']    = $this->formBuilder = new FormBuilder($this->htmlBuilder, $this->urlGenerator, 'csrfToken');
 
-		$edificeServiceProvider = new \Lionart\Edifice\EdificeServiceProvider($app);
-		$edificeServiceProvider->register();
+		$this->edificeServiceProvider = new EdificeServiceProvider($app);
+		$this->edificeServiceProvider->register();
 		$this->edifice = $app['edifice.form'];
 
 		$app->make('Illuminate\Container\Container');
