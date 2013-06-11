@@ -179,7 +179,7 @@ abstract class AbstractInput {
 	 *
 	 * @param bool $error is set to true when a validation error occurs.
 	 * @param bool $prefixed
-	 * @param bool $postfix
+	 * @param bool $postfixed
 	 *
 	 * @return string
 	 */
