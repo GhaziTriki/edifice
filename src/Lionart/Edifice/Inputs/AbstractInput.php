@@ -66,18 +66,18 @@ abstract class AbstractInput {
 		if (isset($label_opts['label'])) {
 			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
 				// FIXME : should add columns ratio for Foundation CSS Styling
-				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
+				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . close_div();
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
 				$result .= $label_opts['label'] . $tag . $this->closeRow();
 			}
 		} elseif (isset($prefix) || isset($postfix)) {
 			if (isset($prefix)) {
-				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
+				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . close_div();
 				$result .= $prefix . $input_tag;
 			}
 			if (isset($postfix)) {
-				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . '</div>';
+				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . close_div();
 				$result .= $input_tag . $postfix;
 			}
 			$result .= $this->closeRow();
@@ -123,7 +123,7 @@ abstract class AbstractInput {
 				$label_tag = $this->edifice->form->label($name, $text, $label);
 
 				if ($inline === true) {
-					$label_tag = '<div class="small-4 large-4 columns">' . $label_tag . '</div>';
+					$label_tag = '<div class="small-4 large-4 columns">' . $label_tag . close_div();
 				}
 			}
 		}
@@ -147,7 +147,7 @@ abstract class AbstractInput {
 			if (array_key_exists('text', $prefix)) {
 				$text = array_pull($prefix, 'text');
 
-				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="prefix">' . $text . '</span>' . '</div>';
+				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="prefix">' . $text . '</span>' . close_div();
 			}
 		}
 
@@ -169,7 +169,7 @@ abstract class AbstractInput {
 			if (array_key_exists('text', $postfix)) {
 				$text = array_pull($postfix, 'text');
 
-				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="postfix">' . $text . '</span>' . '</div>';
+				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="postfix">' . $text . '</span>' . close_div();
 			}
 		}
 
