@@ -41,3 +41,23 @@ if (!function_exists('array_clean')) {
 		return $array;
 	}
 }
+
+if (!function_exists('open_div')) {
+	/**
+	 * Opens a HTML div tag.
+	 * @return string '</div>'
+	 */
+	function open_div(array $options = array()) {
+		return '<div ' . app('html')->attributes($options) . '>';
+	}
+}
+
+if (!function_exists('close_div')) {
+	/**
+	 * Closes a HTML div tag.
+	 * @return string '</div>'
+	 */
+	function close_div() {
+		return '</div>';
+	}
+}
