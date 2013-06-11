@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\MessageBag;
+
 require_once 'EdificeTestCase.php';
 
 class TextInputTest extends EdificeTestCase {
@@ -47,5 +49,13 @@ class TextInputTest extends EdificeTestCase {
 		$textWithPrefix = $this->edifice->text('site_url', 'github', array('postfix' => array('text' => '.com')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-8 large-8 columns"><input name="site_url" type="text" value="github"></div><div class="small-4 large-4 columns"><span class="postfix">.com</span></div></div>', $textWithPrefix);
+	}
+
+	public function testSimpleWithError() {
+		$errors = new MessageBag(array('first_name' => array('Incomplete First name')));
+		$this->session->set('errors', $errors);
+
+		$textSimple = $this->edifice->text('first_name');
+		$this->assertEquals('<div class="row error"><input name="first_name" type="text"><small>Incomplete First name</small></div>', $textSimple);
 	}
 }

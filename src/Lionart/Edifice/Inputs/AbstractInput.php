@@ -55,9 +55,11 @@ abstract class AbstractInput {
 
 		$has_error     = false;
 		$error_message = '';
-		if (!is_null($this->edifice->getErrors()) and array_key_exists($name, $this->edifice->getErrors()->getMessages())) {
+		// TODO : errors should not be delegated to edifice, but edifice should give them to the input
+		$errors = $this->edifice->getErrors($name);
+		if (sizeof($errors) > 0) {
 			$has_error     = true;
-			$error_message = '<small>' . $this->edifice->getErrors()[$name][0] . '</small>';
+			$error_message = '<small>' . $errors[0] . '</small>';
 		}
 		$result = $this->openRow($has_error, isset($prefix), isset($postfix));
 

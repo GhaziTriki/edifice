@@ -10,7 +10,6 @@ namespace Lionart\Edifice\Form;
 
 use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
-use Illuminate\Support\MessageBag;
 
 class Edifice {
 
@@ -66,8 +65,6 @@ class Edifice {
 	 * @return string
 	 */
 	public function close() {
-		$this->errors = null;
-
 		return $this->form->close();
 	}
 
@@ -135,9 +132,9 @@ class Edifice {
 	 * @return string
 	 */
 	public function password($name, $options = array()) {
-		$label = $this->processLabel($name, $options);
+		/*	$label = $this->processLabel($name, $options);
 
-		return $this->processItem($name, $this->form->password($name, $options), $label);
+			return $this->processItem($name, $this->form->password($name, $options), $label);*/
 	}
 
 	/**
@@ -333,14 +330,16 @@ class Edifice {
 
 
 	/**
-	 * @return \Illuminate\Support\MessageBag
+	 * @param $key The name of the input containing the error.
+	 *
+	 * @return array
 	 */
-	public function getErrors() {
+	public function getErrors($key) {
 		if (isset($this->session) and !is_null($this->session->get('errors'))) {
-			return $this->session->get('errors')->getMessages();
+			return $this->session->get('errors')->get($key);
 		}
 
-		return null;
+		return array();
 	}
 
 	/**
