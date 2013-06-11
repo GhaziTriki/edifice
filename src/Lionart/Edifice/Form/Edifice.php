@@ -10,6 +10,7 @@ namespace Lionart\Edifice\Form;
 
 use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
+use Lionart\Edifice\Inputs\AbstractInput;
 
 class Edifice {
 
@@ -117,10 +118,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function text($name, $value = null, $options = array()) {
-		// TODO : use configuration to load default renderer class or user custom class
-		$text = new $this->render_map['text']($this);
-
-		return $text->render($name, $value, $options);
+		return $this->getRendererFactory('text')->render($name, $value, $options);
 	}
 
 	/**
@@ -132,9 +130,9 @@ class Edifice {
 	 * @return string
 	 */
 	public function password($name, $options = array()) {
-		/*	$label = $this->processLabel($name, $options);
+		$label = $this->processLabel($name, $options);
 
-			return $this->processItem($name, $this->form->password($name, $options), $label);*/
+		return $this->processItem($name, $this->form->password($name, $options), $label);
 	}
 
 	/**
@@ -160,10 +158,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function email($name, $value = null, $options = array()) {
-		// TODO : use configuration to load default renderer class or user custom class
-		$text = new $this->render_map['email']($this);
-
-		return $text->render($name, $value, $options);
+		return $this->getRendererFactory('email')->render($name, $value, $options);
 	}
 
 	/**
@@ -190,11 +185,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function textarea($name, $value = null, $options = array()) {
-
-		// TODO : use configuration to load default renderer class or user custom class
-		$text = new $this->render_map['textarea']($this);
-
-		return $text->render($name, $value, $options);
+		return $this->getRendererFactory('textarea')->render($name, $value, $options);
 	}
 
 	/**
@@ -340,6 +331,18 @@ class Edifice {
 		}
 
 		return array();
+	}
+
+	/**
+	 * Returns an instance of the renderer class assigned to an input.
+	 *
+	 * @param $input HTML Input name
+	 *
+	 * @return \Lionart\Edifice\Inputs\AbstractInput
+	 */
+	public function getRendererFactory($input) {
+		// TODO : use configuration to load default renderer class or user custom class
+		return new $this->render_map[$input]($this);
 	}
 
 	/**
