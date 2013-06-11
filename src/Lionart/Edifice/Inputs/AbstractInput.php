@@ -35,7 +35,7 @@ abstract class AbstractInput {
 	public function render($name, $value = null, $options = array()) {
 		$label   = $this->processLabel($name, $options);
 		$prefix  = $this->processPrefix($name, $options);
-		$postfix = $this->processpostfix($name, $options);
+		$postfix = $this->processPostfix($name, $options);
 
 		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label, $prefix, $postfix);
 	}
@@ -160,7 +160,7 @@ abstract class AbstractInput {
 	 *
 	 * @return string
 	 */
-	protected function processpostfix($name, &$options) {
+	protected function processPostfix($name, &$options) {
 		$label_tag = null;
 		if (array_key_exists('postfix', $options)) {
 			$postfix = array_pull($options, 'postfix');
@@ -179,7 +179,7 @@ abstract class AbstractInput {
 	 *
 	 * @param bool $error is set to true when a validation error occurs.
 	 * @param bool $prefixed
-	 * @param bool $postfixed
+	 * @param bool $postfix
 	 *
 	 * @return string
 	 */
@@ -201,7 +201,7 @@ abstract class AbstractInput {
 	 * @return string
 	 */
 	protected function closeRow() {
-		return '</div>';
+		return close_div();
 	}
 
 }
