@@ -14,12 +14,6 @@ use Illuminate\Support\MessageBag;
 
 class Edifice {
 
-
-	/**
-	 * @var \Illuminate\Support\MessageBag
-	 */
-	private $errors;
-
 	/**
 	 * The session store implementation.
 	 *
@@ -51,14 +45,6 @@ class Edifice {
 	 * @return string
 	 */
 	public function open(array $options = array()) {
-		if (isset($this->session)) {
-			$this->errors = $this->session->get('errors');
-		}
-
-		if (!is_null($this->errors)) {
-			$this->errors = $this->errors->getMessages();
-		}
-
 		return $this->form->open($options);
 	}
 
@@ -345,8 +331,16 @@ class Edifice {
 		return $this;
 	}
 
+
+	/**
+	 * @return \Illuminate\Support\MessageBag
+	 */
 	public function getErrors() {
-		return $this->errors;
+		if (isset($this->session) and !is_null($this->session->get('errors'))) {
+			return $this->session->get('errors')->getMessages();
+		}
+
+		return null;
 	}
 
 	/**
