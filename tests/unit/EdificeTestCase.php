@@ -1,5 +1,4 @@
 <?php
-use Illuminate\Foundation\Application;
 use Illuminate\Html\FormBuilder;
 use Illuminate\Html\HtmlBuilder;
 use Illuminate\Http\Request;
@@ -8,8 +7,8 @@ use Illuminate\Session\Store;
 use Lionart\Edifice\EdificeServiceProvider;
 use Lionart\Edifice\Form\Edifice;
 use Mockery as m;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Created by JetBrains PhpStorm.
@@ -64,6 +63,7 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 		$edificeServiceProvider->register();
 		$this->edifice = $app['edifice.form'];
 
+		$app->make('Illuminate\Container\Container');
 		$app->instance('Illuminate\Container\Container', $app);
 	}
 }
