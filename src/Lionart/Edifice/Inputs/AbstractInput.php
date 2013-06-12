@@ -145,9 +145,8 @@ abstract class AbstractInput {
 		if (array_key_exists('prefix', $options)) {
 			$prefix = array_pull($options, 'prefix');
 			if (array_key_exists('text', $prefix)) {
-				$text = array_pull($prefix, 'text');
-
-				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="prefix">' . $text . '</span>' . close_div();
+				$text      = array_pull($prefix, 'text');
+				$label_tag = $label_tag = create_div(array('class' => 'small-4 large-4 columns'), '<span class="prefix">' . $text . '</span>');
 			}
 		}
 
@@ -169,7 +168,7 @@ abstract class AbstractInput {
 			if (array_key_exists('text', $postfix)) {
 				$text = array_pull($postfix, 'text');
 
-				$label_tag = $label_tag = '<div class="small-4 large-4 columns">' . '<span class="postfix">' . $text . '</span>' . close_div();
+				$label_tag = $label_tag = create_div(array('class' => 'small-4 large-4 columns'), '<span class="postfix">' . $text . '</span>');
 			}
 		}
 
@@ -206,7 +205,7 @@ abstract class AbstractInput {
 			array_add_to_key($attr, 'class', 'collapse');
 		}
 
-		return '<div class="' . $attr['class'] . '">';
+		return open_div(array('class' => $attr['class']));
 	}
 
 	/**
