@@ -59,25 +59,25 @@ abstract class AbstractInput {
 		$errors = $this->edifice->getErrors($name);
 		if (sizeof($errors) > 0) {
 			$has_error     = true;
-			$error_message = '<small>' . $errors[0] . '</small>';
+			$error_message = $this->getErrorElement($errors);
 		}
 		$result = $this->openRow($has_error, isset($prefix), isset($postfix));
 
 		if (isset($label_opts['label'])) {
 			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
 				// FIXME : should add columns ratio for Foundation CSS Styling
-				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . close_div();
+				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
 				$result .= $label_opts['label'] . $tag . $this->closeRow();
 			}
 		} elseif (isset($prefix) || isset($postfix)) {
 			if (isset($prefix)) {
-				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . close_div();
+				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
 				$result .= $prefix . $input_tag;
 			}
 			if (isset($postfix)) {
-				$input_tag = '<div class="small-8 large-8 columns">' . $tag . $error_message . close_div();
+				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
 				$result .= $input_tag . $postfix;
 			}
 			$result .= $this->closeRow();
@@ -123,7 +123,7 @@ abstract class AbstractInput {
 				$label_tag = $this->edifice->form->label($name, $text, $label);
 
 				if ($inline === true) {
-					$label_tag = '<div class="small-4 large-4 columns">' . $label_tag . close_div();
+					$label_tag = create_div(array('class' => 'small-4 large-4 columns'), $label_tag);
 				}
 			}
 		}
@@ -174,6 +174,17 @@ abstract class AbstractInput {
 		}
 
 		return $label_tag;
+	}
+
+	/**
+	 * Generates the HTML error tag to be displayed
+	 *
+	 * @param $errors
+	 *
+	 * @return string
+	 */
+	protected function getErrorElement($errors) {
+		return '<small>' . $errors[0] . '</small>';
 	}
 
 	/**
