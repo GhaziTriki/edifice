@@ -36,7 +36,7 @@ class Edifice {
 								'number'   => '\Lionart\Edifice\Inputs\NumberInput',
 								'search'   => '\Lionart\Edifice\Inputs\SearchInput',
 								'text'     => '\Lionart\Edifice\Inputs\TextInput',
-								'textarea' => '\Lionart\Edifice\Inputs\TextareaInput');
+								'textarea' => '\Lionart\Edifice\Inputs\TextAreaInput');
 
 	/**
 	 * Create a new form builder instance.
