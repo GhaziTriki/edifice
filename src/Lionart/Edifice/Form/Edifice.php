@@ -21,6 +21,7 @@ namespace Lionart\Edifice\Form;
 use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
 use Lionart\Edifice\Inputs\AbstractInput;
+use Lionart\Edifice\Inputs\Input;
 
 /**
  * Class Edifice
@@ -123,9 +124,10 @@ class Edifice {
 	 */
 	public function input($type, $name, $value = null, $options = array()) {
 
-		$label = $this->processLabel($name, $options);
+		$input = new Input($this);
+		$input->setType($type);
 
-		return $this->processItem($name, $this->form->input($type, $name, $value, $options), $label);
+		return $input->render($name, $value, $options);
 	}
 
 	/**
@@ -138,7 +140,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function text($name, $value = null, $options = array()) {
-		return $this->getRendererFactory('text')->render($name, $value, $options);
+		return $this->getInputRendererFactory('text')->render($name, $value, $options);
 	}
 
 	/**
@@ -150,9 +152,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function password($name, $options = array()) {
-		$label = $this->processLabel($name, $options);
-
-		return $this->processItem($name, $this->form->password($name, $options), $label);
+		return $this->getInputRendererFactory('password')->render($name, $options);
 	}
 
 	/**
@@ -165,7 +165,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function hidden($name, $value = null, $options = array()) {
-		return $this->form->password($name, $value, $options);
+		return $this->form->hidden($name, $value, $options);
 	}
 
 	/**
@@ -178,7 +178,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function email($name, $value = null, $options = array()) {
-		return $this->getRendererFactory('email')->render($name, $value, $options);
+		return $this->getInputRendererFactory('email')->render($name, $value, $options);
 	}
 
 	/**
@@ -191,7 +191,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function number($name, $value = null, $options = array()) {
-		return $this->getRendererFactory('number')->render($name, $value, $options);
+		return $this->getInputRendererFactory('number')->render($name, $value, $options);
 	}
 
 	/**
@@ -204,7 +204,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function search($name, $value = null, $options = array()) {
-		return $this->getRendererFactory('search')->render($name, $value, $options);
+		return $this->getInputRendererFactory('search')->render($name, $value, $options);
 	}
 
 	/**
@@ -217,7 +217,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function tel($name, $value = null, $options = array()) {
-		return $this->getRendererFactory('tel')->render($name, $value, $options);
+		return $this->getInputRendererFactory('tel')->render($name, $value, $options);
 	}
 
 	/**
@@ -229,9 +229,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function file($name, $options = array()) {
-		$label = $this->processLabel($name, $options);
-
-		return $this->processItem($name, $this->form->file($name, $options), $label);
+		return $this->getInputRendererFactory('file')->render($name, $options);
 	}
 
 	/**
@@ -244,7 +242,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function textarea($name, $value = null, $options = array()) {
-		return $this->getRendererFactory('textarea')->render($name, $value, $options);
+		return $this->getInputRendererFactory('textarea')->render($name, $value, $options);
 	}
 
 	/**
@@ -258,9 +256,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function select($name, $list = array(), $selected = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
-
-		return $this->processItem($name, $this->form->select($name, $list, $selected, $options), $label);
+		return $this->getInputRendererFactory('select')->render($name, $list, $selected, $options);
 	}
 
 	/**
@@ -274,9 +270,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function checkbox($name, $value = 1, $checked = null, $options = array()) {
-		$label = $this->processLabel($name, $options, false);
-
-		return $this->processItem($name, $this->form->checkbox($name, $value, $checked, $options), $label, false);
+		return $this->getInputRendererFactory('checkbox')->render($name, $value, $checked, $options);
 	}
 
 	/**
@@ -290,9 +284,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function radio($name, $value = null, $checked = null, $options = array()) {
-		$label = $this->processLabel($name, $options);
-
-		return $this->processItem($name, $this->form->radio($name, $value, $checked, $options), $label);
+		return $this->getInputRendererFactory('radio')->render($name, $value, $checked, $options);
 	}
 
 	/**
@@ -408,7 +400,7 @@ class Edifice {
 	 *
 	 * @return \Lionart\Edifice\Inputs\AbstractInput
 	 */
-	private function getRendererFactory($input) {
+	private function getInputRendererFactory($input) {
 		return new $this->config['renderers.' . $input]($this);
 	}
 
