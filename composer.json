@@ -1,6 +1,7 @@
 {
     "name": "lionart/edifice",
-    "description": "",
+    "description": "Advanced Form Builder for Laravel 4 Framework",
+    "license": "GNU GPL 3.0",
     "authors": [
         {
             "name": "Ghazi Triki",

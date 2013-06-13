@@ -16,25 +16,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'EdificeTestCase.php';
+namespace Lionart\Edifice\Inputs;
 
-class FormTest extends EdificeTestCase {
-	protected function setUp() {
-		parent::setUp();
-	}
 
-	protected function tearDown() {
-		parent::tearDown();
-	}
-
-	public function testFormOpen() {
-		$form1 = $this->edifice->open(array('method' => 'GET'));
-
-		$this->assertEquals('<form method="GET" action="http://localhost/edifice" accept-charset="UTF-8">', $form1);;
-	}
-
-	public function testFormClose() {
-		$this->assertEquals('</form>', $this->edifice->close());
-	}
+class Radio extends BooleanInput {
 
 }
