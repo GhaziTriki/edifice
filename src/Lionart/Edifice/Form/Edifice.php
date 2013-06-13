@@ -173,6 +173,19 @@ class Edifice {
 	}
 
 	/**
+	 * Create a number input field.
+	 *
+	 * @param  string $name
+	 * @param  string $value
+	 * @param  array  $options
+	 *
+	 * @return string
+	 */
+	public function number($name, $value = null, $options = array()) {
+		return $this->getRendererFactory('number')->render($name, $value, $options);
+	}
+
+	/**
 	 * Create a file input field.
 	 *
 	 * @param  string $name

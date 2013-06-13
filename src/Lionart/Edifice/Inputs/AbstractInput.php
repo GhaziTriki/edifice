@@ -47,9 +47,9 @@ abstract class AbstractInput {
 		$prefix  = $this->processPrefix($name, $options);
 		$postfix = $this->processPostfix($name, $options);
 
-		try {
+		if (array_search($this->render_method, get_class_methods(get_class($this->edifice->form))) !== false) {
 			return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label, $prefix, $postfix);
-		} catch (Exception $e) {
+		} else {
 			// Fallback on HTMLBuilder input method.
 			return $this->process($name, $this->edifice->form->input($this->render_method, $name, $value, $options), $label, $prefix, $postfix);
 		}
