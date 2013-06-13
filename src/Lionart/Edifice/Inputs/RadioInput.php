@@ -19,6 +19,6 @@
 namespace Lionart\Edifice\Inputs;
 
 
-class Radio extends BooleanInput {
+class RadioInput extends BooleanInput {
 
 }

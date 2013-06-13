@@ -19,6 +19,6 @@
 namespace Lionart\Edifice\Inputs;
 
 
-class Text extends AbstractInput {
-	protected $render_method = 'text';
+class CheckboxInput extends BooleanInput {
+
 }

@@ -19,7 +19,6 @@
 namespace Lionart\Edifice\Inputs;
 
 
-class Email extends AbstractInput {
-	protected $render_method = 'email';
-
+class NumberInput extends AbstractInput {
+	protected $render_method = 'number';
 }

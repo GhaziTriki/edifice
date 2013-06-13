@@ -19,6 +19,6 @@
 namespace Lionart\Edifice\Inputs;
 
 
-class Textarea extends AbstractInput {
-	protected $render_method = 'textarea';
+class TextInput extends AbstractInput {
+	protected $render_method = 'text';
 }

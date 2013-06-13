@@ -69,8 +69,7 @@ class TextInputTest extends EdificeTestCase {
 	}
 
 	public function testSimpleWithError() {
-		$errors = new MessageBag(array('first_name' => array('Incomplete First name')));
-		$this->session->set('errors', $errors);
+		$this->putErrorInSession(array('first_name' => array('Incomplete First name')));
 
 		$textSimple = $this->edifice->text('first_name');
 		$this->assertEquals('<div class="row error"><input name="first_name" type="text"><small>Incomplete First name</small></div>', $textSimple);

@@ -21,6 +21,7 @@ use Illuminate\Html\HtmlBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Session\Store;
+use Illuminate\Support\MessageBag;
 use Lionart\Edifice\EdificeServiceProvider;
 use Lionart\Edifice\Form\Edifice;
 use Mockery as m;
@@ -79,5 +80,10 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 
 		$app->make('Illuminate\Container\Container');
 		$app->instance('Illuminate\Container\Container', $app);
+	}
+
+	protected function putErrorInSession($messages) {
+		$errors = new MessageBag($messages);
+		$this->session->set('errors', $errors);
 	}
 }

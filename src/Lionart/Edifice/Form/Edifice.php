@@ -32,9 +32,10 @@ class Edifice {
 	protected $session;
 
 	// TODO : externalise to a configuration file
-	private $render_map = array('email'    => '\Lionart\Edifice\Inputs\Email',
-								'text'     => '\Lionart\Edifice\Inputs\Text',
-								'textarea' => '\Lionart\Edifice\Inputs\Textarea');
+	private $render_map = array('email'    => '\Lionart\Edifice\Inputs\EmailInput',
+								'number'   => '\Lionart\Edifice\Inputs\NumberInput',
+								'text'     => '\Lionart\Edifice\Inputs\TextInput',
+								'textarea' => '\Lionart\Edifice\Inputs\TextareaInput');
 
 	/**
 	 * Create a new form builder instance.
