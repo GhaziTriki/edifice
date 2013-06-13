@@ -22,7 +22,7 @@ namespace Lionart\Edifice\Inputs;
  * Class TextAreaInput
  * @version 1.0
  * @since   2013-06-10
- * @author  Ghazi Triki <ghazi.nocturne@gmail.com
+ * @author  Ghazi Triki <ghazi.nocturne@gmail.com>
  * @package Lionart\Edifice\Inputs
  */
 class TextAreaInput extends AbstractInput {
