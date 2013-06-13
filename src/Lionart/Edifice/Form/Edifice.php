@@ -34,6 +34,7 @@ class Edifice {
 	// TODO : externalise to a configuration file
 	private $render_map = array('email'    => '\Lionart\Edifice\Inputs\EmailInput',
 								'number'   => '\Lionart\Edifice\Inputs\NumberInput',
+								'search'   => '\Lionart\Edifice\Inputs\SearchInput',
 								'text'     => '\Lionart\Edifice\Inputs\TextInput',
 								'textarea' => '\Lionart\Edifice\Inputs\TextareaInput');
 
@@ -183,6 +184,19 @@ class Edifice {
 	 */
 	public function number($name, $value = null, $options = array()) {
 		return $this->getRendererFactory('number')->render($name, $value, $options);
+	}
+
+	/**
+	 * Create a search input field.
+	 *
+	 * @param  string $name
+	 * @param  string $value
+	 * @param  array  $options
+	 *
+	 * @return string
+	 */
+	public function search($name, $value = null, $options = array()) {
+		return $this->getRendererFactory('search')->render($name, $value, $options);
 	}
 
 	/**
