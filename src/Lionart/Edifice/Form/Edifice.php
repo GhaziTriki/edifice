@@ -66,6 +66,10 @@ class Edifice {
 	 * @return string
 	 */
 	public function open(array $options = array()) {
+		if (isset($this->config['use_custom']) and $this->config['use_custom'] == true) {
+			array_add_to_key($options, 'class', 'custom');
+		}
+
 		return $this->form->open($options);
 	}
 

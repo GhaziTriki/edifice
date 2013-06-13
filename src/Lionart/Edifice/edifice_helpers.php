@@ -18,7 +18,7 @@
 
 if (!function_exists('array_add_to_key')) {
 	/**
-	 * Adds a value to class attribute.
+	 * Adds a value to an attribute.
 	 *
 	 * @param $array
 	 * @param $key
@@ -26,7 +26,11 @@ if (!function_exists('array_add_to_key')) {
 	 */
 	function array_add_to_key(&$array, $key, $value) {
 		if (!empty($value)) {
-			$array[$key] = implode(' ', array($array[$key], $value));
+			if (array_key_exists($key, $array)) {
+				$array[$key] = implode(' ', array($array[$key], $value));
+			} else {
+				$array = array_add($array, $key, $value);
+			}
 		}
 	}
 }

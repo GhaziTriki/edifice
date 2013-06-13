@@ -27,10 +27,10 @@ class FormTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	public function testFormOpen() {
+	public function testFormOpenUsingCustom() {
 		$form1 = $this->edifice->open(array('method' => 'GET'));
 
-		$this->assertEquals('<form method="GET" action="http://localhost/edifice" accept-charset="UTF-8">', $form1);;
+		$this->assertEquals('<form method="GET" action="http://localhost/edifice" accept-charset="UTF-8" class="custom">', $form1);;
 	}
 
 	public function testFormClose() {
