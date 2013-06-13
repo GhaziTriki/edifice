@@ -21,6 +21,13 @@ namespace Lionart\Edifice;
 use Illuminate\Support\ServiceProvider;
 use Lionart\Edifice\Form\Edifice as EdificeFormBuilder;
 
+/**
+ * Class EdificeServiceProvider
+ * @version  1.0
+ * @since    2013-06-05
+ * @author   Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package  Lionart\Edifice\Support
+ */
 class EdificeServiceProvider extends ServiceProvider {
 
 	/**

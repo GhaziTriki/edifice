@@ -18,7 +18,13 @@
 
 namespace Lionart\Edifice\Inputs;
 
-
+/**
+ * Class TextInput
+ * @version 1.0
+ * @since   2013-06-09
+ * @author  Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package Lionart\Edifice\Inputs
+ */
 class TextInput extends AbstractInput {
 	protected $render_method = 'text';
 }

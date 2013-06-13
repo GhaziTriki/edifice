@@ -18,7 +18,13 @@
 
 namespace Lionart\Edifice\Inputs;
 
-
+/**
+ * Class CheckboxInput
+ * @version 1.0
+ * @since   2013-06-13
+ * @author  Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package Lionart\Edifice\Inputs
+ */
 class CheckboxInput extends BooleanInput {
 
 }

@@ -18,7 +18,13 @@
 
 namespace Lionart\Edifice\Inputs;
 
-
+/**
+ * Class EmailInput
+ * @version 1.0
+ * @since   2013-06-10
+ * @author  Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package Lionart\Edifice\Inputs
+ */
 class EmailInput extends AbstractInput {
 	protected $render_method = 'email';
 

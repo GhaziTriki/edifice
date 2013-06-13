@@ -18,7 +18,13 @@
 
 namespace Lionart\Edifice\Inputs;
 
-
+/**
+ * Class BooleanInput
+ * @version 1.0
+ * @since   2013-06-13
+ * @author  Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package Lionart\Edifice\Inputs
+ */
 abstract class BooleanInput extends AbstractInput {
 
 }

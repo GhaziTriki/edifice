@@ -22,6 +22,13 @@ use Illuminate\Html\FormBuilder;
 use Illuminate\Session\Store;
 use Lionart\Edifice\Inputs\AbstractInput;
 
+/**
+ * Class Edifice
+ * @version 1.0
+ * @since   2013-06-05
+ * @author  Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package Lionart\Edifice\Form
+ */
 class Edifice {
 
 	/**

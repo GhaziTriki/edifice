@@ -20,6 +20,13 @@ namespace Lionart\Edifice\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class Edifice
+ * @version  1.0
+ * @since    2013-06-05
+ * @author   Ghazi Triki <ghazi.nocturne@gmail.com
+ * @package  Lionart\Edifice\Support\Facades
+ */
 class Edifice extends Facade {
 
 	/**
