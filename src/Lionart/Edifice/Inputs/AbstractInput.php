@@ -65,6 +65,9 @@ abstract class AbstractInput {
 	/**
 	 * Processes a HTML input with its label.
 	 *
+	 * @todo  errors should not be delegated to edifice, but edifice should give them to the input
+	 * @fixme inline label creation : should add columns ratio for Foundation CSS Styling
+	 *
 	 * @param       $name
 	 * @param       $tag
 	 * @param array $label_opts
@@ -77,8 +80,7 @@ abstract class AbstractInput {
 
 		$has_error     = false;
 		$error_message = '';
-		// TODO : errors should not be delegated to edifice, but edifice should give them to the input
-		$errors = $this->edifice->getErrors($name);
+		$errors        = $this->edifice->getErrors($name);
 		if (sizeof($errors) > 0) {
 			$has_error     = true;
 			$error_message = $this->getErrorElement($errors);
@@ -87,10 +89,11 @@ abstract class AbstractInput {
 
 		if (isset($label_opts['label'])) {
 			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
-				// FIXME : should add columns ratio for Foundation CSS Styling
+				// Inline label creation
 				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
 				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
 			} else {
+				// Label is top of input
 				$result .= $label_opts['label'] . $tag . $this->closeRow();
 			}
 		} elseif (isset($prefix) || isset($postfix)) {

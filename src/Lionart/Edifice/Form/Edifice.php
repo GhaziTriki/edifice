@@ -38,7 +38,10 @@ class Edifice {
 	 */
 	protected $session;
 
-	// TODO : externalise to a configuration file
+	/**
+	 * @todo externalise to a configuration file
+	 * @var array
+	 */
 	private $render_map = array('email'    => '\Lionart\Edifice\Inputs\EmailInput',
 								'number'   => '\Lionart\Edifice\Inputs\NumberInput',
 								'search'   => '\Lionart\Edifice\Inputs\SearchInput',
@@ -50,7 +53,6 @@ class Edifice {
 	 *
 	 * @param  \Illuminate\Html\FormBuilder $form
 	 *
-	 * @return void
 	 */
 	public function __construct(FormBuilder $form) {
 		$this->form = $form;
@@ -381,12 +383,13 @@ class Edifice {
 	/**
 	 * Returns an instance of the renderer class assigned to an input.
 	 *
+	 * @todo use configuration to load default renderer class or user custom class
+	 *
 	 * @param $input HTML Input name
 	 *
 	 * @return \Lionart\Edifice\Inputs\AbstractInput
 	 */
 	public function getRendererFactory($input) {
-		// TODO : use configuration to load default renderer class or user custom class
 		return new $this->render_map[$input]($this);
 	}
 
