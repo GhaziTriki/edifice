@@ -53,7 +53,7 @@ class EdificeServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 		$this->app['edifice.form'] = $this->app->share(function ($app) {
-			$edifice = new EdificeFormBuilder($app['form']);
+			$edifice = new EdificeFormBuilder($app['form'], $app['config']['edifice']);
 
 			return $edifice->setSessionStore($app['session']);
 		});

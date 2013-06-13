@@ -16,6 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Illuminate\Config\FileLoader;
+use Illuminate\Config\Repository;
 use Illuminate\Html\FormBuilder;
 use Illuminate\Html\HtmlBuilder;
 use Illuminate\Http\Request;
@@ -34,6 +36,11 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 	 * @var \Illuminate\Container\Container
 	 */
 	protected $app;
+
+	/**
+	 * @var \Illuminate\Config\Repository
+	 */
+	protected $config;
 
 	/**
 	 * @var \Illuminate\Routing\UrlGenerator
@@ -69,6 +76,7 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 
 		$app = new \Illuminate\Container\Container();
 
+		$app['config']  = $this->config = $this->generateMockConfiguration();
 		$app['session'] = $this->session = new Store(new MockArraySessionStorage());
 		$app['url']     = $this->urlGenerator = new UrlGenerator(new RouteCollection, Request::create('/edifice', 'GET'));
 		$app['html']    = $this->htmlBuilder = new HtmlBuilder($this->urlGenerator);
@@ -85,5 +93,14 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 	protected function putErrorInSession($messages) {
 		$errors = new MessageBag($messages);
 		$this->session->set('errors', $errors);
+	}
+
+	private function generateMockConfiguration() {
+
+		$config_data = include(__DIR__ . '/../../src/config/edifice.php');
+
+		$config = array('edifice' => array_dot($config_data));
+
+		return $config;
 	}
 }

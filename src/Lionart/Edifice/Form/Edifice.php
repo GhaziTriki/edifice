@@ -39,24 +39,22 @@ class Edifice {
 	protected $session;
 
 	/**
-	 * @todo externalise to a configuration file
+	 * The form configuration.
+	 *
 	 * @var array
 	 */
-	private $render_map = array('email'    => '\Lionart\Edifice\Inputs\EmailInput',
-								'number'   => '\Lionart\Edifice\Inputs\NumberInput',
-								'search'   => '\Lionart\Edifice\Inputs\SearchInput',
-								'tel'      => '\Lionart\Edifice\Inputs\TelInput',
-								'text'     => '\Lionart\Edifice\Inputs\TextInput',
-								'textarea' => '\Lionart\Edifice\Inputs\TextAreaInput');
+	protected $config;
 
 	/**
 	 * Create a new form builder instance.
 	 *
 	 * @param  \Illuminate\Html\FormBuilder $form
+	 * @param array                         $config
 	 *
 	 */
-	public function __construct(FormBuilder $form) {
-		$this->form = $form;
+	public function __construct(FormBuilder $form, array $config) {
+		$this->form   = $form;
+		$this->config = $config;
 	}
 
 	/**
@@ -395,16 +393,23 @@ class Edifice {
 	}
 
 	/**
-	 * Returns an instance of the renderer class assigned to an input.
+	 * Returns Edifice configuration.
 	 *
-	 * @todo use configuration to load default renderer class or user custom class
+	 * @return array
+	 */
+	public function getConfig() {
+		return $this->config;
+	}
+
+	/**
+	 * Returns an instance of the renderer class assigned to an input.
 	 *
 	 * @param $input HTML Input name
 	 *
 	 * @return \Lionart\Edifice\Inputs\AbstractInput
 	 */
-	public function getRendererFactory($input) {
-		return new $this->render_map[$input]($this);
+	private function getRendererFactory($input) {
+		return new $this->config['renderers.' . $input]($this);
 	}
 
 	/**
