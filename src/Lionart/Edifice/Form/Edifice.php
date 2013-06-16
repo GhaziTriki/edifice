@@ -53,9 +53,8 @@ class Edifice {
 	 * @param array                         $config
 	 *
 	 */
-	public function __construct(FormBuilder $form, array $config) {
+	public function __construct(FormBuilder $form) {
 		$this->form   = $form;
-		$this->config = $config;
 	}
 
 	/**
@@ -395,6 +394,15 @@ class Edifice {
 	 */
 	public function getConfig() {
 		return $this->config;
+	}
+
+	/**
+	 * Sets the configuration.
+	 *
+	 * @param array $config
+	 */
+	public function setConfig(array $config) {
+		$this->config = array_dot($config);
 	}
 
 	/**

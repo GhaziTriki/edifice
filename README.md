@@ -11,6 +11,10 @@ Edifice use Laravel Syntax with some additition. The learning curve is not painf
 Setup
 =====
 
+Install configuration file :
+
+php artisan config:publish lionart/edifice
+
 In app.php Laravel confiuration file add this line to providers :
 
 ```php
@@ -23,7 +27,8 @@ And the line below to aliases :
     'Edifice'     => 'Lionart\Edifice\Support\Facades\Edifice'
 ```
 
-Do not forget to load Foundation CSS & JavaScript files: http://foundation.zurb.com/docs/ & http://foundation.zurb.com/docs/javascript.html
+Do not forget to load Foundation CSS & JavaScript files:
+http://foundation.zurb.com/docs/ &http://foundation.zurb.com/docs/javascript.html
 
 Creating an input with a label
 =====
