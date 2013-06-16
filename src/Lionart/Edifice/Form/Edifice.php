@@ -50,11 +50,10 @@ class Edifice {
 	 * Create a new form builder instance.
 	 *
 	 * @param  \Illuminate\Html\FormBuilder $form
-	 * @param array                         $config
 	 *
 	 */
 	public function __construct(FormBuilder $form) {
-		$this->form   = $form;
+		$this->form = $form;
 	}
 
 	/**

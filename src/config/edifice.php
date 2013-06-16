@@ -9,6 +9,7 @@
 return array(
 	'renderers'      => array('email'    => '\Lionart\Edifice\Inputs\EmailInput',
 							  'number'   => '\Lionart\Edifice\Inputs\NumberInput',
+							  'password' => '\Lionart\Edifice\Inputs\PasswordInput',
 							  'search'   => '\Lionart\Edifice\Inputs\SearchInput',
 							  'tel'      => '\Lionart\Edifice\Inputs\TelInput',
 							  'text'     => '\Lionart\Edifice\Inputs\TextInput',
