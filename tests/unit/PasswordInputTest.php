@@ -36,27 +36,27 @@ class PasswordInputTest extends EdificeTestCase {
 	public function testSimplePasswordInput() {
 		$passwordSimple        = $this->edifice->password('user_password');
 		$passwordRequiredStyle = $this->edifice->password('user_password', array('class' => 'required', 'required' => 'required'));
-		$passwordPlaceholder   = $this->edifice->password('user_password', array('placeholder' => 'First name'));
+		$passwordPlaceholder   = $this->edifice->password('user_password', array('placeholder' => 'Password'));
 
 		$this->assertEquals('<div class="row"><input name="user_password" type="password" value=""></div>', $passwordSimple);
 		$this->assertEquals('<div class="row"><input class="required" required="required" name="user_password" type="password" value=""></div>', $passwordRequiredStyle);
-		$this->assertEquals('<div class="row"><input placeholder="First name" name="user_password" type="password" value=""></div>', $passwordPlaceholder);
+		$this->assertEquals('<div class="row"><input placeholder="Password" name="user_password" type="password" value=""></div>', $passwordPlaceholder);
 	}
 
 	public function testPasswordWithTopLabel() {
-		$passwordWithLabelTopLeft  = $this->edifice->password('user_password', array('label' => array('text' => 'First name')));
-		$passwordWithLabelTopRight = $this->edifice->password('user_password', array('label' => array('text' => 'First name', 'align' => 'right')));
+		$passwordWithLabelTopLeft  = $this->edifice->password('user_password', array('label' => array('text' => 'Password')));
+		$passwordWithLabelTopRight = $this->edifice->password('user_password', array('label' => array('text' => 'Password', 'align' => 'right')));
 
-		$this->assertEquals('<div class="row"><label for="user_password">First name</label><input name="user_password" type="password" value="" id="user_password"></div>', $passwordWithLabelTopLeft);
-		$this->assertEquals('<div class="row"><label for="user_password" class="right">First name</label><input name="user_password" type="password" value="" id="user_password"></div>', $passwordWithLabelTopRight);
+		$this->assertEquals('<div class="row"><label for="user_password">Password</label><input name="user_password" type="password" value="" id="user_password"></div>', $passwordWithLabelTopLeft);
+		$this->assertEquals('<div class="row"><label for="user_password" class="right">Password</label><input name="user_password" type="password" value="" id="user_password"></div>', $passwordWithLabelTopRight);
 	}
 
 	public function testPasswordWithInlineLabel() {
-		$passwordWithLabelInlineLeft  = $this->edifice->password('user_password', array('label' => array('text' => 'First name', 'inline' => true)));
-		$passwordWithLabelInlineRight = $this->edifice->password('user_password', array('label' => array('text' => 'First name', 'inline' => true, 'align' => 'right')));
+		$passwordWithLabelInlineLeft  = $this->edifice->password('user_password', array('label' => array('text' => 'Password', 'inline' => true)));
+		$passwordWithLabelInlineRight = $this->edifice->password('user_password', array('label' => array('text' => 'Password', 'inline' => true, 'align' => 'right')));
 
-		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_password" class="inline">First name</label></div><div class="small-8 large-8 columns"><input name="user_password" type="password" value="" id="user_password"></div></div>', $passwordWithLabelInlineLeft);
-		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_password" class="inline right">First name</label></div><div class="small-8 large-8 columns"><input name="user_password" type="password" value="" id="user_password"></div></div>', $passwordWithLabelInlineRight);
+		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_password" class="inline">Password</label></div><div class="small-8 large-8 columns"><input name="user_password" type="password" value="" id="user_password"></div></div>', $passwordWithLabelInlineLeft);
+		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_password" class="inline right">Password</label></div><div class="small-8 large-8 columns"><input name="user_password" type="password" value="" id="user_password"></div></div>', $passwordWithLabelInlineRight);
 	}
 
 	public function testPasswordWithPrefix() {
@@ -72,9 +72,9 @@ class PasswordInputTest extends EdificeTestCase {
 	}
 
 	public function testSimpleWithError() {
-		$this->putErrorInSession(array('user_password' => array('Incomplete First name')));
+		$this->putErrorInSession(array('user_password' => array('Incomplete Password')));
 
 		$passwordSimple = $this->edifice->password('user_password');
-		$this->assertEquals('<div class="row error"><input name="user_password" type="password" value=""><small>Incomplete First name</small></div>', $passwordSimple);
+		$this->assertEquals('<div class="row error"><input name="user_password" type="password" value=""><small>Incomplete Password</small></div>', $passwordSimple);
 	}
 }
