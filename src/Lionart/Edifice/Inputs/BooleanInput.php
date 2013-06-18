@@ -31,7 +31,7 @@ abstract class BooleanInput extends AbstractInput {
 	 * @inheritdoc
 	 */
 	public function render($name, $value = null, $options = array()) {
-		$checked   = array_pull($options, 'checked');
+		$checked = array_pull($options, 'checked');
 
 		$additions = $this->preProcessAdditions($name, $options);
 

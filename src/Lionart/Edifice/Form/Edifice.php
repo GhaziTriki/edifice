@@ -290,7 +290,7 @@ class Edifice {
 	public function radio($name, $value = null, $checked = null, $options = array()) {
 		$options['checked'] = $checked;
 
-		return $this->getInputRendererFactory('radio')->render($name, $value, $checked, $options);
+		return $this->getInputRendererFactory('radio')->render($name, $value, $options);
 	}
 
 	/**

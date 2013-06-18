@@ -11,6 +11,7 @@ return array(
 							  'email'    => '\Lionart\Edifice\Inputs\EmailInput',
 							  'number'   => '\Lionart\Edifice\Inputs\NumberInput',
 							  'password' => '\Lionart\Edifice\Inputs\PasswordInput',
+							  'radio'    => '\Lionart\Edifice\Inputs\RadioInput',
 							  'search'   => '\Lionart\Edifice\Inputs\SearchInput',
 							  'tel'      => '\Lionart\Edifice\Inputs\TelInput',
 							  'text'     => '\Lionart\Edifice\Inputs\TextInput',
