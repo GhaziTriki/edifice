@@ -50,15 +50,13 @@ abstract class AbstractInput {
 	 * @return mixed
 	 */
 	public function render($name, $value = null, $options = array()) {
-		$label   = $this->processLabel($name, $options);
-		$prefix  = $this->processPrefix($name, $options);
-		$postfix = $this->processPostfix($name, $options);
+		$additions = $this->preProcessAdditions($name, $options);
 
 		if (array_search($this->render_method, get_class_methods(get_class($this->edifice->form))) !== false) {
-			return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $label, $prefix, $postfix);
+			return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $options), $additions);
 		} else {
 			// Fallback on HTMLBuilder input method.
-			return $this->process($name, $this->edifice->form->input($this->render_method, $name, $value, $options), $label, $prefix, $postfix);
+			return $this->process($name, $this->edifice->form->input($this->render_method, $name, $value, $options), $additions);
 		}
 	}
 
@@ -70,13 +68,14 @@ abstract class AbstractInput {
 	 *
 	 * @param       $name
 	 * @param       $tag
-	 * @param array $label_opts
-	 * @param       $prefix
-	 * @param       $postfix
+	 * @param array $additions
 	 *
 	 * @return string
 	 */
-	protected function process($name, $tag, array $label_opts, $prefix = null, $postfix = null) {
+	protected function process($name, $tag, $additions = array()) {
+
+		// Extracted variables are label, prefix and postfix
+		extract($additions);
 
 		$has_error     = false;
 		$error_message = '';
@@ -87,14 +86,14 @@ abstract class AbstractInput {
 		}
 		$result = $this->openRow($has_error, isset($prefix), isset($postfix));
 
-		if (isset($label_opts['label'])) {
-			if (isset($label_opts['inline']) and $label_opts['inline'] === true) {
+		if (isset($label['label'])) {
+			if (isset($label['inline']) and $label['inline'] === true) {
 				// Inline label creation
 				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
-				$result .= $label_opts['label'] . $input_tag . $this->closeRow();
+				$result .= $label['label'] . $input_tag . $this->closeRow();
 			} else {
 				// Label is top of input
-				$result .= $label_opts['label'] . $tag . $this->closeRow();
+				$result .= $label['label'] . $tag . $this->closeRow();
 			}
 		} elseif (isset($prefix) || isset($postfix)) {
 			if (isset($prefix)) {
@@ -111,6 +110,22 @@ abstract class AbstractInput {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Pre-processes input additions like label, prefix and postfix.
+	 *
+	 * @param $name
+	 * @param $options
+	 *
+	 * @return array
+	 */
+	protected function preProcessAdditions($name, &$options) {
+		$label   = $this->processLabel($name, $options);
+		$prefix  = $this->processPrefix($name, $options);
+		$postfix = $this->processPostfix($name, $options);
+
+		return compact('label', 'prefix', 'postfix');
 	}
 
 	/**
