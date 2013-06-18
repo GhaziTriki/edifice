@@ -154,7 +154,7 @@ class Edifice {
 	 * @return string
 	 */
 	public function password($name, $options = array()) {
-		return $this->getInputRendererFactory('password')->render($name, $options);
+		return $this->getInputRendererFactory('password')->render($name, null, $options);
 	}
 
 	/**

@@ -21,7 +21,7 @@ namespace Lionart\Edifice\Inputs;
 /**
  * Class PasswordInput
  * @version 1.0
- * @since   2013-06-09
+ * @since   2013-06-16
  * @author  Ghazi Triki <ghazi.nocturne@gmail.com>
  * @package Lionart\Edifice\Inputs
  */
