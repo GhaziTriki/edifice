@@ -30,9 +30,6 @@ class PasswordInputTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	/**
-	 * @fixme : fix $passwordRequiredStyle : style is not processed !!! It should be !!!
-	 */
 	public function testSimplePasswordInput() {
 		$passwordSimple        = $this->edifice->password('user_password');
 		$passwordRequiredStyle = $this->edifice->password('user_password', array('class' => 'required', 'required' => 'required'));

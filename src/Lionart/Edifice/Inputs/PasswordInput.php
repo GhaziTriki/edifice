@@ -27,4 +27,13 @@ namespace Lionart\Edifice\Inputs;
  */
 class PasswordInput extends AbstractInput {
 	protected $render_method = 'password';
+
+	/**
+	 * @inheritdoc
+	 */
+	public function render($name, $value = null, $options = array()) {
+		$additions = $this->preProcessAdditions($name, $options);
+
+		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $options), $additions);
+	}
 }
