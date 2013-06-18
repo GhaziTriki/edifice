@@ -49,7 +49,7 @@ class EdificeServiceProvider extends ServiceProvider {
 	/**
 	 * Register the service provider.
 	 *
-	 * @return void
+	 * @return \Lionart\Edifice\Form\Edifice
 	 */
 	public function register() {
 		$this->app['edifice.form'] = $this->app->share(function ($app) {

@@ -30,7 +30,7 @@ class TelInputTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	public function testSimpleTextInput() {
+	public function testSimpleTelInput() {
 		$telSimple        = $this->edifice->tel('user_phone');
 		$telRequiredStyle = $this->edifice->tel('user_phone', 'Ghazi', array('class' => 'required', 'required' => 'required'));
 		$telPlaceholder   = $this->edifice->tel('user_phone', null, array('placeholder' => '411600'));
@@ -40,7 +40,7 @@ class TelInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><input placeholder="411600" name="user_phone" type="tel"></div>', $telPlaceholder);
 	}
 
-	public function testTextWithTopLabel() {
+	public function testTelWithTopLabel() {
 		$telWithLabelTopLeft  = $this->edifice->tel('user_phone', null, array('label' => array('text' => '411600')));
 		$telWithLabelTopRight = $this->edifice->tel('user_phone', null, array('label' => array('text' => '411600', 'align' => 'right')));
 
@@ -48,7 +48,7 @@ class TelInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><label for="user_phone" class="right">411600</label><input name="user_phone" type="tel" id="user_phone"></div>', $telWithLabelTopRight);
 	}
 
-	public function testTextWithInlineLabel() {
+	public function testTelWithInlineLabel() {
 		$telWithLabelInlineLeft  = $this->edifice->tel('user_phone', null, array('label' => array('text' => '411600', 'inline' => true)));
 		$telWithLabelInlineRight = $this->edifice->tel('user_phone', null, array('label' => array('text' => '411600', 'inline' => true, 'align' => 'right')));
 
@@ -56,13 +56,13 @@ class TelInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_phone" class="inline right">411600</label></div><div class="small-8 large-8 columns"><input name="user_phone" type="tel" id="user_phone"></div></div>', $telWithLabelInlineRight);
 	}
 
-	public function testTextWithPrefix() {
+	public function testTelWithPrefix() {
 		$telWithPrefix = $this->edifice->tel('site_url', '411', array('prefix' => array('text' => '+216')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-4 large-4 columns"><span class="prefix">+216</span></div><div class="small-8 large-8 columns"><input name="site_url" type="tel" value="411"></div></div>', $telWithPrefix);
 	}
 
-	public function testTextWithPostfix() {
+	public function testTelWithPostfix() {
 		$telWithPrefix = $this->edifice->tel('site_url', '200', array('postfix' => array('text' => '.com')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-8 large-8 columns"><input name="site_url" type="tel" value="200"></div><div class="small-4 large-4 columns"><span class="postfix">.com</span></div></div>', $telWithPrefix);

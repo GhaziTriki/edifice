@@ -28,7 +28,7 @@ class NumberInputTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	public function testSimpleTextInput() {
+	public function testSimpleNumberInput() {
 		$numberSimple        = $this->edifice->number('user_age');
 		$numberRequiredStyle = $this->edifice->number('user_age', 28, array('class' => 'required', 'required' => 'required'));
 		$numberPlaceholder   = $this->edifice->number('user_age', null, array('placeholder' => 'User age'));
@@ -38,7 +38,7 @@ class NumberInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><input placeholder="User age" name="user_age" type="number"></div>', $numberPlaceholder);
 	}
 
-	public function testTextWithTopLabel() {
+	public function testNumberWithTopLabel() {
 		$numberWithLabelTopLeft  = $this->edifice->number('user_age', null, array('label' => array('text' => 'User age')));
 		$numberWithLabelTopRight = $this->edifice->number('user_age', null, array('label' => array('text' => 'User age', 'align' => 'right')));
 
@@ -46,7 +46,7 @@ class NumberInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><label for="user_age" class="right">User age</label><input name="user_age" type="number" id="user_age"></div>', $numberWithLabelTopRight);
 	}
 
-	public function testTextWithInlineLabel() {
+	public function testNumberWithInlineLabel() {
 		$numberWithLabelInlineLeft  = $this->edifice->number('user_age', null, array('label' => array('text' => 'User age', 'inline' => true)));
 		$numberWithLabelInlineRight = $this->edifice->number('user_age', null, array('label' => array('text' => 'User age', 'inline' => true, 'align' => 'right')));
 
@@ -54,13 +54,13 @@ class NumberInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_age" class="inline right">User age</label></div><div class="small-8 large-8 columns"><input name="user_age" type="number" id="user_age"></div></div>', $numberWithLabelInlineRight);
 	}
 
-	public function testTextWithPrefix() {
+	public function testNumberWithPrefix() {
 		$numberWithPrefix = $this->edifice->number('user_age', 28, array('prefix' => array('text' => 'Since')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-4 large-4 columns"><span class="prefix">Since</span></div><div class="small-8 large-8 columns"><input name="user_age" type="number" value="28"></div></div>', $numberWithPrefix);
 	}
 
-	public function testTextWithPostfix() {
+	public function testNumberWithPostfix() {
 		$numberWithPrefix = $this->edifice->number('user_age', 28, array('postfix' => array('text' => 'years')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-8 large-8 columns"><input name="user_age" type="number" value="28"></div><div class="small-4 large-4 columns"><span class="postfix">years</span></div></div>', $numberWithPrefix);

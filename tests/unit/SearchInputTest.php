@@ -30,7 +30,7 @@ class SearchInputTest extends EdificeTestCase {
 		parent::tearDown();
 	}
 
-	public function testSimpleTextInput() {
+	public function testSimpleSearchInput() {
 		$searchSimple        = $this->edifice->search('user_search');
 		$searchRequiredStyle = $this->edifice->search('user_search', 'Ghazi', array('class' => 'required', 'required' => 'required'));
 		$searchPlaceholder   = $this->edifice->search('user_search', null, array('placeholder' => 'Search'));
@@ -40,7 +40,7 @@ class SearchInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><input placeholder="Search" name="user_search" type="search"></div>', $searchPlaceholder);
 	}
 
-	public function testTextWithTopLabel() {
+	public function testSearchWithTopLabel() {
 		$searchWithLabelTopLeft  = $this->edifice->search('user_search', null, array('label' => array('text' => 'Search')));
 		$searchWithLabelTopRight = $this->edifice->search('user_search', null, array('label' => array('text' => 'Search', 'align' => 'right')));
 
@@ -48,7 +48,7 @@ class SearchInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><label for="user_search" class="right">Search</label><input name="user_search" type="search" id="user_search"></div>', $searchWithLabelTopRight);
 	}
 
-	public function testTextWithInlineLabel() {
+	public function testSearchWithInlineLabel() {
 		$searchWithLabelInlineLeft  = $this->edifice->search('user_search', null, array('label' => array('text' => 'Search', 'inline' => true)));
 		$searchWithLabelInlineRight = $this->edifice->search('user_search', null, array('label' => array('text' => 'Search', 'inline' => true, 'align' => 'right')));
 
@@ -56,13 +56,13 @@ class SearchInputTest extends EdificeTestCase {
 		$this->assertEquals('<div class="row"><div class="small-4 large-4 columns"><label for="user_search" class="inline right">Search</label></div><div class="small-8 large-8 columns"><input name="user_search" type="search" id="user_search"></div></div>', $searchWithLabelInlineRight);
 	}
 
-	public function testTextWithPrefix() {
+	public function testSearchWithPrefix() {
 		$searchWithPrefix = $this->edifice->search('site_url', 'github.com', array('prefix' => array('text' => 'http://')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-4 large-4 columns"><span class="prefix">http://</span></div><div class="small-8 large-8 columns"><input name="site_url" type="search" value="github.com"></div></div>', $searchWithPrefix);
 	}
 
-	public function testTextWithPostfix() {
+	public function testSearchWithPostfix() {
 		$searchWithPrefix = $this->edifice->search('site_url', 'github', array('postfix' => array('text' => '.com')));
 
 		$this->assertEquals('<div class="row collapse"><div class="small-8 large-8 columns"><input name="site_url" type="search" value="github"></div><div class="small-4 large-4 columns"><span class="postfix">.com</span></div></div>', $searchWithPrefix);
