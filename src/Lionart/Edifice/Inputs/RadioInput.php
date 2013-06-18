@@ -21,10 +21,10 @@ namespace Lionart\Edifice\Inputs;
 /**
  * Class RadioInput
  * @version 1.0
- * @since   2013-06-13
+ * @since   2013-06-18
  * @author  Ghazi Triki <ghazi.nocturne@gmail.com>
  * @package Lionart\Edifice\Inputs
  */
 class RadioInput extends BooleanInput {
-
+	protected $render_method = 'radio';
 }
