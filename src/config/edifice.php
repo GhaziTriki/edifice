@@ -7,7 +7,8 @@
  */
 
 return array(
-	'renderers'      => array('email'    => '\Lionart\Edifice\Inputs\EmailInput',
+	'renderers'      => array('checkbox' => '\Lionart\Edifice\Inputs\CheckboxInput',
+							  'email'    => '\Lionart\Edifice\Inputs\EmailInput',
 							  'number'   => '\Lionart\Edifice\Inputs\NumberInput',
 							  'password' => '\Lionart\Edifice\Inputs\PasswordInput',
 							  'search'   => '\Lionart\Edifice\Inputs\SearchInput',
