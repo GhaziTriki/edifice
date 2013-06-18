@@ -8,6 +8,7 @@
 
 return array(
 	'renderers'      => array('checkbox' => '\Lionart\Edifice\Inputs\CheckboxInput',
+							  'color'    => '\Lionart\Edifice\Inputs\ColorInput',
 							  'email'    => '\Lionart\Edifice\Inputs\EmailInput',
 							  'number'   => '\Lionart\Edifice\Inputs\NumberInput',
 							  'password' => '\Lionart\Edifice\Inputs\PasswordInput',

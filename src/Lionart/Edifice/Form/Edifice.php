@@ -210,7 +210,7 @@ class Edifice {
 	}
 
 	/**
-	 * Create a search input field.
+	 * Create a tel input field.
 	 *
 	 * @param  string $name
 	 * @param  string $value
@@ -220,6 +220,19 @@ class Edifice {
 	 */
 	public function tel($name, $value = null, $options = array()) {
 		return $this->getInputRendererFactory('tel')->render($name, $value, $options);
+	}
+
+	/**
+	 * Create a colorR input field.
+	 *
+	 * @param  string $name
+	 * @param  string $value
+	 * @param  array  $options
+	 *
+	 * @return string
+	 */
+	public function color($name, $value = null, $options = array()) {
+		return $this->getInputRendererFactory('color')->render($name, $value, $options);
 	}
 
 	/**
