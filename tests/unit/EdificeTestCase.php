@@ -97,9 +97,9 @@ class EdificeTestCase extends \PHPUnit_Framework_TestCase {
 
 	private function generateMockConfiguration() {
 
+		$config      = m::mock('Illuminate\Config\Repository');
 		$config_data = include(__DIR__ . '/../../src/config/edifice.php');
-
-		$config = array('edifice' => array_dot($config_data));
+		$config->shouldReceive('get')->with('edifice::edifice')->andReturn($config_data);
 
 		return $config;
 	}
