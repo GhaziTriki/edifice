@@ -10,20 +10,23 @@
 <body>
 
 <div class="row large-4">
-    <input type="radio" name="favorite_fruit"/>
-    <input type="radio" name="favorite_fruit"/>
+    <input type="radio" name="favorite_fruit" type="checkbox" value="1"/>
+    <input type="radio" name="favorite_fruit" type="checkbox" value="2"/>
 </div>
 
-<div class="row large-4">
-    <label for="favorite_fruit">
-        <input type="radio" name="favorite_fruit"/>
-        Orange
-    </label>
-    <label for="favorite_fruit">
-        <input type="radio" name="favorite_fruit"/>
-        Banana
-    </label>
-</div>
+<!-- Radio Custom with label -->
+<form class="custom">
+    <div class="row large-4">
+        <label for="favorite_fruit">
+            <input name="favorite_fruit" type="radio" style="display:none;">
+            <span class="custom radio"></span> Orange
+        </label>
+        <label for="favorite_fruit">
+            <input name="favorite_fruit" type="radio" style="display:none;">
+            <span class="custom radio"></span> Banana
+        </label>
+    </div>
+</form>
 
 <div class="row large-4 error">
     <label for="favorite_fruit">
@@ -52,6 +55,7 @@
 <script src="js/vendor/jquery.js"></script>
 <script src="js/vendor/custom.modernizr.js"></script>
 <script src="js/foundation/foundation.js"></script>
+<script src="js/foundation/foundation.forms.js"></script>
 <script> $(document).foundation(); </script>
 </body>
 </html>

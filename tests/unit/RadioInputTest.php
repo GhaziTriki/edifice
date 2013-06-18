@@ -30,6 +30,15 @@ class RadioInputTest extends EdificeTestCase {
 	public function testSimpleRadio() {
 		$radioSimple = $this->edifice->radio('favorite_fruit', 'Kiwi');
 
-		$this->assertEquals('<div class="row"><input name="favorite_fruit" type="radio" value="Kiwi"></div>', $radioSimple);
+		$this->assertEquals('<div class="row"><input style="display:none;" name="favorite_fruit" type="radio" value="Kiwi"></div>', $radioSimple);
+	}
+
+	/**
+	 * @todo : custom and normal radio inputs should be tested
+	 */
+	public function testRadioWithLabel() {
+		$radioWithLabel = $this->edifice->radio('favorite_fruit', 'Banana', null, array('label' => array('text' => 'Banana')));
+
+		$this->assertEquals('<div class="row"><label for="favorite_fruit"><input style="display:none;" name="favorite_fruit" type="radio" value="Banana" id="favorite_fruit"><span class="custom radio"></span> Banana</label></div>', $radioWithLabel);
 	}
 }

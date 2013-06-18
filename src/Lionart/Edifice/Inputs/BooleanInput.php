@@ -33,13 +33,73 @@ abstract class BooleanInput extends AbstractInput {
 	public function render($name, $value = null, $options = array()) {
 		$checked = array_pull($options, 'checked');
 
+		// Custom input for Foundation
+		array_add($options, 'style', '');
+		array_add_to_key($options, 'style', 'display:none;');
+
 		$additions = $this->preProcessAdditions($name, $options);
 
-		if (array_search($this->render_method, get_class_methods(get_class($this->edifice->form))) !== false) {
-			return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $checked, $options), $additions);
-		} else {
-			// Fallback on HTMLBuilder input method.
-			return $this->process($name, $this->edifice->form->input($this->render_method, $name, $value, $checked, $options), $additions);
+		return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $checked, $options), $additions);
+	}
+
+	/**
+	 * @inheritdoc
+	 * @todo : refactor prefix and sufffix concatenation
+	 */
+	protected function process($name, $tag, $additions = array()) {
+
+		// Extracted variables are label, prefix and postfix
+		extract($additions);
+
+		$has_error     = false;
+		$error_message = '';
+		$errors        = $this->edifice->getErrors($name);
+		if (sizeof($errors) > 0) {
+			$has_error     = true;
+			$error_message = $this->getErrorElement($errors);
 		}
+		$result = $this->openRow($has_error, isset($prefix), isset($postfix));
+
+		if (isset($label['label'])) {
+			$label['label'] = preg_replace('/>/', '>' . $tag, $label['label'], 1);
+			$result .= html_entity_decode($label['label']) . $this->closeRow();
+		} elseif (isset($prefix) || isset($postfix)) {
+			if (isset($prefix)) {
+				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
+				$result .= $prefix . $input_tag;
+			}
+			if (isset($postfix)) {
+				$input_tag = create_div(array('class' => 'small-8 large-8 columns'), $tag . $error_message);
+				$result .= $input_tag . $postfix;
+			}
+			$result .= $this->closeRow();
+		} else {
+			$result .= $tag . $error_message . $this->closeRow();
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @inheritdoc
+	 * @todo : 'custom' form property should be handled, for now it is always activated
+	 */
+	protected function processLabel($name, &$options) {
+		$label_tag = null;
+		if (array_key_exists('label', $options)) {
+
+			$label = array_pull($options, 'label');
+			if (array_key_exists('text', $label)) {
+				$label = array_add($label, 'class', '');
+
+				$text = array_pull($label, 'text');
+
+				array_clean($label);
+
+				$label_tag = $this->edifice->form->label($name, '<span class="custom radio"></span> ' . $text, $label);
+			}
+		}
+
+		return array('label' => $label_tag);
 	}
 }

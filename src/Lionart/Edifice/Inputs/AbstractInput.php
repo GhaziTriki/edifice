@@ -181,16 +181,16 @@ abstract class AbstractInput {
 	 * @return string
 	 */
 	protected function processPrefix($name, &$options) {
-		$label_tag = null;
+		$prefix_tag = null;
 		if (array_key_exists('prefix', $options)) {
 			$prefix = array_pull($options, 'prefix');
 			if (array_key_exists('text', $prefix)) {
-				$text      = array_pull($prefix, 'text');
-				$label_tag = $label_tag = create_div(array('class' => 'small-4 large-4 columns'), '<span class="prefix">' . $text . '</span>');
+				$text       = array_pull($prefix, 'text');
+				$prefix_tag = $prefix_tag = create_div(array('class' => 'small-4 large-4 columns'), '<span class="prefix">' . $text . '</span>');
 			}
 		}
 
-		return $label_tag;
+		return $prefix_tag;
 	}
 
 	/**
@@ -202,17 +202,17 @@ abstract class AbstractInput {
 	 * @return string
 	 */
 	protected function processPostfix($name, &$options) {
-		$label_tag = null;
+		$postfix_tag = null;
 		if (array_key_exists('postfix', $options)) {
 			$postfix = array_pull($options, 'postfix');
 			if (array_key_exists('text', $postfix)) {
 				$text = array_pull($postfix, 'text');
 
-				$label_tag = $label_tag = create_div(array('class' => 'small-4 large-4 columns'), '<span class="postfix">' . $text . '</span>');
+				$postfix_tag = $postfix_tag = create_div(array('class' => 'small-4 large-4 columns'), '<span class="postfix">' . $text . '</span>');
 			}
 		}
 
-		return $label_tag;
+		return $postfix_tag;
 	}
 
 	/**

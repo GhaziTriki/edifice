@@ -30,6 +30,7 @@ class ChecbkoxInputTest extends EdificeTestCase {
 	public function testSimpleCheckbox() {
 		$checkobxSimple = $this->edifice->checkbox('favorite_fruit', 'Kiwi');
 
-		$this->assertEquals('<div class="row"><input name="favorite_fruit" type="checkbox" value="Kiwi"></div>', $checkobxSimple);
+		$this->assertEquals('<div class="row"><input style="display:none;" name="favorite_fruit" type="checkbox" value="Kiwi"></div>', $checkobxSimple);
 	}
+
 }
