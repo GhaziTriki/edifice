@@ -272,7 +272,9 @@ class Edifice {
 	 * @return string
 	 */
 	public function checkbox($name, $value = 1, $checked = null, $options = array()) {
-		return $this->getInputRendererFactory('checkbox')->render($name, $value, $checked, $options);
+		$options['checked'] = $checked;
+
+		return $this->getInputRendererFactory('checkbox')->render($name, $value, $options);
 	}
 
 	/**
@@ -286,6 +288,8 @@ class Edifice {
 	 * @return string
 	 */
 	public function radio($name, $value = null, $checked = null, $options = array()) {
+		$options['checked'] = $checked;
+
 		return $this->getInputRendererFactory('radio')->render($name, $value, $checked, $options);
 	}
 

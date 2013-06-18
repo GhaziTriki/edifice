@@ -27,4 +27,19 @@ namespace Lionart\Edifice\Inputs;
  */
 abstract class BooleanInput extends AbstractInput {
 
+	/**
+	 * @inheritdoc
+	 */
+	public function render($name, $value = null, $options = array()) {
+		$checked   = array_pull($options, 'checked');
+
+		$additions = $this->preProcessAdditions($name, $options);
+
+		if (array_search($this->render_method, get_class_methods(get_class($this->edifice->form))) !== false) {
+			return $this->process($name, $this->edifice->form->{$this->render_method}($name, $value, $checked, $options), $additions);
+		} else {
+			// Fallback on HTMLBuilder input method.
+			return $this->process($name, $this->edifice->form->input($this->render_method, $name, $value, $checked, $options), $additions);
+		}
+	}
 }
